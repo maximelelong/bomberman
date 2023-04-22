@@ -1,6 +1,6 @@
+#include "Displayable.hpp"
 
-
-class GameElement {         //Classe abstraite representant un element de jeu    
+class GameElement : public Displayable{         //Classe abstraite representant un element de jeu    
     public :
         virtual void display() = 0;  //affiche l'element
 
