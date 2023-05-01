@@ -12,8 +12,8 @@ Player::Player(Terrain& t) : GameElement(t)   //crée un joueur
     if (serial_Player == 0)
     {
         this->Joueur.setFillColor(Color::Blue);
-        _x = 0;
-        _y = 0;
+        _x = 10;
+        _y = 7;
         this->Joueur.setPosition(_x, _y);
     }
     if (serial_Player == 1)
@@ -40,8 +40,8 @@ Player::Player(Terrain& t) : GameElement(t)   //crée un joueur
     }
     this->Joueur.setRadius(20);
     this->Joueur.setOutlineColor(Color::Black);
-    int b = this->Joueur.getPosition().x/64;
-    int c= this->Joueur.getPosition().y/48;
+    int b = int(this->Joueur.getPosition().x)%64;
+    int c= int(this->Joueur.getPosition().y)%48;
     t.getCase(b,c)->addElem(this); 
     t.listePlayers.push_back(this);
 };

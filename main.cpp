@@ -21,6 +21,7 @@ int main(){
     Game game;
     game.setBackGround();
     Terrain T;
+    
     Player P1(T);
     Player P2(T);
     Player P3(T);
