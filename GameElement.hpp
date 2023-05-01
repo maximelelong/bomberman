@@ -1,38 +1,55 @@
+#ifndef GAMEELEMENT_HPP
+#define GAMEELEMENT_HPP
 #include "Displayable.hpp"
+#pragma once
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/Audio.hpp>
+#include <vector>
+#include <ctime>
+#include "GameElement.hpp"
+
+using namespace sf;
+
+class Terrain;
+
 
 class GameElement : public Displayable{         //Classe abstraite representant un element de jeu    
     public :
-        virtual void display() = 0;  //affiche l'element
+        
+        
 
-        GameElement(int x, int y, terrain t){
-            _x = x;
-            _y = y;
-            serial = numberOfObjects++;
+        GameElement(int x, int y, Terrain& t); //construit objet
+        GameElement(Terrain& t);//pour construire un joueur
 
-            t.getCase(x,y).addGameElement(self);    //demande à la case [x,y] d'ajouter l'objet à sa liste d'objet
-        }
-        ~GameElement();
+        //~GameElement();
 
         int getX(){
-            return self._x;
+            return this->_x;
         }
 
         int getY(){
-            return self._y;
+            return this->_y;
         }
 
-        void moveTo(int x, int y){       //deplace un element
-            _x = x;
-            _y = y;
-        }
+        void moveTo(int x, int y);      //deplace un element
+
+
+        const int& getSerial();
+
+
 
     protected :
-
         int _x;
         int _y;
-        static int numberOfObjects = 0;
-        const int serial;
+        static int numberOfObjects;
+        int serial;
         
 
 
-}
+};
+
+#endif

@@ -1,18 +1,47 @@
 #include "Case.hpp"
+#include <vector>
+#pragma once
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/Audio.hpp>
+#include <vector>
+#include <ctime>
+#include "GameElement.hpp"
 
-using namespace std
+using namespace std;
+using namespace sf;
+class Player;
 
-class Terrain : public D {
+class Terrain : public Displayable{
 
     public:
-        void displayBackground();
-        void displayToutesLesCases(){
-            for (size_t i = 0; i < listeCases.size(); i++){
-                listeCases[i].displayCase();
-            }
+        
+        void display(RenderWindow* Window);
+        
+        Case* getCase(int x, int y)
+        {
+            return listeCases[(y-1)*10 + x];
         }
+
+        const int getTaille()
+        {
+            return this->taille;
+        }
+
+        void updateTerrain(int a);
+
+        vector<Case*> listeCases;
+        vector<Player*> listePlayers;
+
+        Terrain();
+
 
     protected:
 
-    vector<case> listeCases;
-}
+    
+    const int taille = 10;
+    
+ };

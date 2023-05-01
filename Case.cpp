@@ -1,10 +1,12 @@
 #include "Case.hpp"
 
+using namespace sf;
+
 
 void Case::suppElem(GameElement* elem){    //parcourt la liste, et si l'element pointé par l'iterateur a le meme serial que l'element a supprimer, le supprime
-        for (list<GameElement*>::iterator it = liste.begin(); it!=list.end(); it ++){
-            if (**it.serial == *elem.serial){
-                liste.erase(it);
+        for (int i = 0; i < this->liste.size(); i++){
+            if (liste[i]->getSerial() == elem->getSerial()){
+                liste.erase(liste.begin()+i);
                 break;
             }
         }
@@ -12,8 +14,8 @@ void Case::suppElem(GameElement* elem){    //parcourt la liste, et si l'element 
         
     }
 
-void Case::displayCase(){  //parcourt la liste d'element d'une case et les affiches
-    for (list<GameElement*>::iterator it = liste.begin(); it!=list.end(); it ++){
-            **it.GameElement::display();
+void Case::display(RenderWindow* Window){  //parcourt la liste d'element d'une case et les affiches
+    for (GameElement *it : this->liste){
+            it->display(Window);
         }
 }
