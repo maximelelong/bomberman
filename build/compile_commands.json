@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src",
+  "command": "/usr/bin/g++  -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build\" -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/include\" -g -std=c++11 -o CMakeFiles/bomberman.dir/main.cpp.o -c \"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/main.cpp\"",
+  "file": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/main.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src",
+  "command": "/usr/bin/g++  -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build\" -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/include\" -g -std=c++11 -o CMakeFiles/bomberman.dir/Case.cpp.o -c \"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Case.cpp\"",
+  "file": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Case.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src",
+  "command": "/usr/bin/g++  -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build\" -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/include\" -g -std=c++11 -o CMakeFiles/bomberman.dir/Game.cpp.o -c \"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Game.cpp\"",
+  "file": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Game.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src",
+  "command": "/usr/bin/g++  -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build\" -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/include\" -g -std=c++11 -o CMakeFiles/bomberman.dir/Player.cpp.o -c \"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Player.cpp\"",
+  "file": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Player.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src",
+  "command": "/usr/bin/g++  -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build\" -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/include\" -g -std=c++11 -o CMakeFiles/bomberman.dir/GameElement.cpp.o -c \"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/GameElement.cpp\"",
+  "file": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/GameElement.cpp"
+},
+{
+  "directory": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src",
+  "command": "/usr/bin/g++  -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build\" -I\"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/include\" -g -std=c++11 -o CMakeFiles/bomberman.dir/Terrain.cpp.o -c \"/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Terrain.cpp\"",
+  "file": "/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/src/Terrain.cpp"
+}
+]
