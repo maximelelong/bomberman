@@ -35,3 +35,6 @@
 *.exe
 *.out
 *.app
+
+# Cmake generated files
+build/**
