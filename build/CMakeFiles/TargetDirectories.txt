@@ -1,5 +1,0 @@
-/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/CMakeFiles/edit_cache.dir
-/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/CMakeFiles/rebuild_cache.dir
-/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src/CMakeFiles/bomberman.dir
-/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src/CMakeFiles/edit_cache.dir
-/home/maxime/Documents/Polytech Sorbonne/ROB4/POO/Projet C++/bomberman/build/src/CMakeFiles/rebuild_cache.dir
