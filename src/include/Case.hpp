@@ -10,6 +10,7 @@
 #include <vector>
 #include <ctime>
 #include "GameElement.hpp"
+#include "Displayable.hpp"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ public:
         vector<GameElement*> liste;
     };
     //~Case(){};  //Destructeur TODO
-    void display(sf::RenderWindow* Window);   // affiche le contenu de la case
+    void display(Visitor* V1, sf::RenderWindow* Window);   // affiche le contenu de la case
 
     void addElem(GameElement* elem)  //ajoute un element à la liste de la case
     {

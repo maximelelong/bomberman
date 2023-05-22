@@ -18,19 +18,13 @@ class Terrain;
 class Player : public GameElement
 {
 private:
-    // position
-    int _x;
-    int _y;
     // serial number
     static int nb_serial_Player;
     int serial_Player;
     // caractéristiques
     int speed;
     int range;
-    // shape
-    CircleShape Joueur;
-    //event
-    Event ev;
+
 
 public:
     // constructor
@@ -38,9 +32,11 @@ public:
     // destructor
     //~Player();
     // update
-    void updatePlayer(int a);
+    void updatePlayer();
     // render
-    void display(RenderWindow* Window);
+    void display(Visitor* V1, RenderWindow* Window);
+    // shape
+    CircleShape Joueur;
 };
 
 #endif

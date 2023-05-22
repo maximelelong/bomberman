@@ -1,6 +1,5 @@
 #ifndef GAMEELEMENT_HPP
 #define GAMEELEMENT_HPP
-#include "Displayable.hpp"
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -10,14 +9,15 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <ctime>
-#include "GameElement.hpp"
+#include "Displayable.hpp"
+
 
 using namespace sf;
 
 class Terrain;
 
 
-class GameElement : public Displayable{         //Classe abstraite representant un element de jeu    
+class GameElement : public Displayable {         //Classe abstraite representant un element de jeu    
     public :
         
         

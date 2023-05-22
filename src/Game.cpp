@@ -1,7 +1,7 @@
-#include "Game.hpp"
-#include "Terrain.hpp"
-#include "Case.hpp"
-#include "Player.hpp"
+#include "include/Game.hpp"
+#include "include/Terrain.hpp"
+#include "include/Case.hpp"
+#include "include/Player.hpp"
 
 using namespace sf;
 
@@ -180,9 +180,10 @@ void Game::renderBackGround()
 
 
 
-void Game::pollEvents(int& a)
+void Game::pollEvents()
 {
     //event polling
+        int count = 0;
         while (this->window->pollEvent(this->ev))
         {
             switch (this->ev.type)
@@ -193,28 +194,14 @@ void Game::pollEvents(int& a)
             
             case Event::KeyPressed:
                 if (this->ev.key.code == Keyboard::Escape)
-                this->window->close();
-                if (this->ev.key.code == Keyboard::Up)
-                a=1;
-                if (this->ev.key.code == Keyboard::Down)
-                a=2;
-                if (this->ev.key.code == Keyboard::Right)
-                a=3; 
-                if (this->ev.key.code == Keyboard::Left)
-                a=4; 
-                if (this->ev.key.code == Keyboard::Z)
-                a=5;
-                if (this->ev.key.code == Keyboard::S)
-                a=6;
-                if (this->ev.key.code == Keyboard::D)
-                a=7; 
-                if (this->ev.key.code == Keyboard::Q)
-                a=8;             
-                break;
-            
+            {
+                    this->window->close();
+                    break;
+            }
             default:
                 break;
             }
+            count++;
         };
 }
 
@@ -222,12 +209,12 @@ void Game::pollEvents(int& a)
 
 void Game::update(Terrain& T)
 {   
-    int a = 0;
-    this->pollEvents(a);
+   
+    this->pollEvents();
 
     this->updateMousePosition();
     
-    T.updateTerrain(a);
+    T.updateTerrain();
 
 
 
@@ -235,7 +222,7 @@ void Game::update(Terrain& T)
 
 }
 
-void Game::render(Terrain& T)
+void Game::render(Visitor* V1, Terrain& T)
 {
     /**
         @return void
@@ -258,7 +245,7 @@ void Game::render(Terrain& T)
     
     for(int i =0; i<T.listePlayers.size(); i++)
     {   
-        T.display(this->window);
+        T.display(V1, this->window);
     }
     //this->window->draw(this->Case);
     this->window->display();

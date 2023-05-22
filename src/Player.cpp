@@ -1,13 +1,16 @@
-#include "Player.hpp"
-#include "Terrain.hpp"
+#include "include/Player.hpp"
+#include "include/Terrain.hpp"
+#include "include/Visiteur.hpp"
+
+class Visitor;
 
 
 int Player::nb_serial_Player = 0;
 
 Player::Player(Terrain& t) : GameElement(t)   //crée un joueur
 {   
-    this->speed = 2;
-    this->range = 1;
+    this->speed = 1;
+    this->range = 2;
     this->serial_Player = nb_serial_Player++;
     if (serial_Player == 0)
     {
@@ -46,7 +49,7 @@ Player::Player(Terrain& t) : GameElement(t)   //crée un joueur
     t.listePlayers.push_back(this);
 };
 
-void Player::updatePlayer(int a)
+void Player::updatePlayer()
 {
     /**
      * update position of 1 player
@@ -56,48 +59,50 @@ void Player::updatePlayer(int a)
 
     if(this->serial_Player == 0)
     {
-        if(a == 1)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {   
-            _y -= 5;
+            _y -= this->speed*5;
         }
-        if(a == 2)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            _y += 5;
+            _y += this->speed*5;
         }
-        if(a == 3)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            _x += 5;
+            _x += this->speed*5;
         }
-        if(a == 4)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-            _x -= 5;
+            _x -= this->speed*5;
         }
     }
     if(this->serial_Player == 1)
     {
-        if(a == 5)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         {   
-            _y -= 5;
+            _y -= this->speed*5;
         }
-        if(a == 6)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
-            _y += 5;
+            _y += this->speed*5;
         }
-        if(a == 7)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-            _x += 5;
+            _x += this->speed*5;
         }
-        if(a == 8)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
         {
-            _x -= 5;
+            _x -= this->speed*5;
         }
     }
 
     this->Joueur.setPosition(_x, _y);
+
 }
 
-void Player::display(RenderWindow* Window)
+void Player::display(Visitor* V1, RenderWindow* Window)
 {   
-    Window->draw(this->Joueur);
+    //Window->draw(this->Joueur);
+    V1->DisplayJoueur(this, Window);
 }
 

@@ -1,4 +1,5 @@
-#include "Case.hpp"
+#include "include/Case.hpp"
+
 
 using namespace sf;
 
@@ -14,8 +15,8 @@ void Case::suppElem(GameElement* elem){    //parcourt la liste, et si l'element 
         
     }
 
-void Case::display(RenderWindow* Window){  //parcourt la liste d'element d'une case et les affiches
+void Case::display(Visitor* V1, RenderWindow* Window){  //parcourt la liste d'element d'une case et les affiches
     for (GameElement *it : this->liste){
-            it->display(Window);
+            it->display(V1, Window);
         }
 }

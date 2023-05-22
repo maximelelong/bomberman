@@ -9,6 +9,7 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <ctime>
+#include "Displayable.hpp"
 //#include "Terrain.hpp"
 
 /*
@@ -59,7 +60,7 @@ public:
     const bool running() const;
 
     // functions
-    void pollEvents(int& a);
+    void pollEvents();
     void updateMousePosition();
     // void updateEnemies();
     // void spawnEnemy();
@@ -67,7 +68,7 @@ public:
     void update(Terrain& T);
     // void renderEnemies();
     void renderBackGround();
-    void render(Terrain& T);
+    void render(Visitor* V1, Terrain& T);
 };
 
 #endif

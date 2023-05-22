@@ -19,7 +19,7 @@ class Terrain : public Displayable{
 
     public:
         
-        void display(RenderWindow* Window);
+        void display(Visitor* V1, RenderWindow* Window);
         
         Case* getCase(int x, int y)
         {
@@ -31,7 +31,7 @@ class Terrain : public Displayable{
             return this->taille;
         }
 
-        void updateTerrain(int a);
+        void updateTerrain();
 
         vector<Case*> listeCases;
         vector<Player*> listePlayers;

@@ -1,6 +1,6 @@
-#include "GameElement.hpp"
-#include "Terrain.hpp"
-#include "Case.hpp"
+#include "include/GameElement.hpp"
+#include "include/Terrain.hpp"
+#include "include/Case.hpp"
 
 
 int GameElement::numberOfObjects = 0;

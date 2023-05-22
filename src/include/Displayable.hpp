@@ -9,15 +9,14 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <ctime>
-#include "GameElement.hpp"
 
-
+class Visitor;
 
 class Displayable
 {   
     public:
 
-    virtual void display(sf::RenderWindow* Window) = 0;  //affiche l'element
+    virtual void display(Visitor* V1, sf::RenderWindow* Window) = 0;  //affiche l'element
 };
 
 #endif
