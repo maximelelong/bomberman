@@ -1,47 +1,49 @@
+#ifndef TERRAIN_HPP
+#define TERRAIN_HPP
+
+#include <vector>
+#include <mutex>
 #include "Case.hpp"
-#include <vector>
-#pragma once
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Audio.hpp>
-#include <vector>
-#include <ctime>
-#include "GameElement.hpp"
+#include "Player.hpp"
+#include "AbstractGameElement.hpp"
+#include "Displayable.hpp"
 
-using namespace std;
-using namespace sf;
-class Player;
+// forward declaration
+class AbstractGameElement;
+class Case;
 
-class Terrain : public Displayable{
+class Terrain : public Displayable {     // classe qui contient les cases, Singleton
 
     public:
-        
-        void display(RenderWindow* Window);
-        
-        Case* getCase(int x, int y)
-        {
-            return listeCases[(y-1)*10 + x];
-        }
 
-        const int getTaille()
-        {
-            return this->taille;
-        }
+        // singleton should not be cloneable or assignable
+        Terrain(Terrain &other) = delete;
+        void operator=(const Terrain &) = delete;
 
-        void updateTerrain(int a);
-
-        vector<Case*> listeCases;
-        vector<Player*> listePlayers;
-
-        Terrain();
-
+        // Get the instance of the singleton
+        static Terrain *GetInstance();
+                
+        // Getters
+        Case* getCase(const uint& x, const uint& y) const;
+        const uint& sizeX() const { return this->sizeX_;}
+        const uint& sizeY() const{ return this->sizeY_;}
+        void display(SFMLRenderer& renderer) override;
 
     protected:
+        // Constructor
+        Terrain();
+        // Destructor
+        //~Terrain();
+        uint sizeX_;
+        uint sizeY_;
+        std::vector<Case*> listeCases_;
 
-    
-    const int taille = 10;
-    
+    private:
+        // overriden display from Displayable
+        
+        // singleton instance and safeguard mutex
+        static Terrain* s_instance;
+        static std::mutex s_mutex;    
  };
+
+ #endif

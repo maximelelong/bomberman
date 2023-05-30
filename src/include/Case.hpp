@@ -1,40 +1,46 @@
 #ifndef CASE_HPP
 #define CASE_HPP
-#pragma once
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Audio.hpp>
-#include <vector>
-#include <ctime>
-#include "GameElement.hpp"
 
-using namespace std;
+#include <vector>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include "SFMLRenderer.hpp"
+#include "AbstractGameElement.hpp"
+#include "Displayable.hpp"
 
 class Case : public Displayable
 {
 
 public:
-    Case()  //constructeur
-    {  // on met des pointeurs pour permettre le polymorphisme
-        vector<GameElement*> liste;
-    };
-    //~Case(){};  //Destructeur TODO
-    void display(sf::RenderWindow* Window);   // affiche le contenu de la case
+    // constructeur
+    Case(const uint x, const uint y);
+    // destructeur
+    //~Case(){}; 
 
-    void addElem(GameElement* elem)  //ajoute un element à la liste de la case
-    {
-        liste.push_back(elem);
-    }
+    // affiche le contenu de la case
+    void display(SFMLRenderer& renderer) override;
 
+    //ajoute un element à la liste de la case
+    void addElem(AbstractGameElement* elem);
+    // remove an element from the list with the matching serial
+    void suppElem(AbstractGameElement* elem);
+    void update(std::vector<sf::Event>& userInputs);
 
-    void suppElem(GameElement* elem);
+    // accessors
+    const uint& x() const   { return this->x_;}
+    const uint& y() const   { return this->y_;}
+    // return reference to the list of game elements
+    std::vector<AbstractGameElement*>& gameElements() { return this->gameElements_;}
+
 
 protected:
 
-    vector<GameElement*> liste;
+    std::vector<AbstractGameElement*> gameElements_;
+    uint x_;
+    uint y_;
+
+private:
 
 };
 

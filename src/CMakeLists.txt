@@ -3,8 +3,11 @@ set(SOURCE_FILES
     Case.cpp
     Game.cpp
     Player.cpp
-    GameElement.cpp
+    Block.cpp
+    Bomb.cpp
+    AbstractGameElement.cpp
     Terrain.cpp
+    SFMLRenderer.cpp
 )
 
 

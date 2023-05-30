@@ -1,46 +1,48 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
-#pragma once
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/Audio.hpp>
 #include <vector>
-#include <ctime>
-#include "GameElement.hpp"
+#include "AbstractGameElement.hpp"
+#include "UserInputObserver.hpp"
+#include "SFMLRenderer.hpp"
 
-using namespace sf;
-
-class Terrain;
-
-class Player : public GameElement
+class Player : public AbstractGameElement
 {
-private:
-    // position
-    int _x;
-    int _y;
-    // serial number
-    static int nb_serial_Player;
-    int serial_Player;
-    // caractéristiques
-    int speed;
-    int range;
-    // shape
-    CircleShape Joueur;
-    //event
-    Event ev;
 
 public:
     // constructor
-    Player(Terrain& t);
+    Player(const uint& startPosX, const uint& startPosY);
     // destructor
     //~Player();
-    // update
-    void updatePlayer(int a);
-    // render
-    void display(RenderWindow* Window);
+
+    // overriden display from Displayable
+    void display(SFMLRenderer& renderer) override;
+    void update(std::vector<sf::Event>& userInputs);
+
+    // accessors
+    const int& id() const   { return this->id_;}
+    const int& speed() const   { return this->speed_;}
+    const int& bombCapacity() const   { return this->bombCapacity_;}
+    const int& bombRange() const   { return this->bombRange_;}
+    // Setters
+    void setSpeed(const int& speed) { this->speed_ = speed;}
+    void setBombCapacity(const int& bombCapacity) { this->bombCapacity_ = bombCapacity;}
+    void setBombRange(const int& bombRange) { this->bombRange_ = bombRange;}
+
+    bool placeBomb();
+
+private:
+
+    // caractéristiques
+    int id_;
+    int speed_;
+    int bombCapacity_;
+    int bombRange_;
+    int bombCount_;
+
+    bool canMove(const uint& x, const uint& y);
+    bool handleKeyStroke(const sf::Event& event);
+    static int s_playerCount;
+    
 };
 
 #endif
