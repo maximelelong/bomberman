@@ -76,6 +76,10 @@ void Player::updatePlayer()
         {
             _x -= this->speed*5;
         }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        { 
+            Bomb* B = new Bomb("mettre le terrain ici", int(this->_y/48), int(this->_x/64)); //il faut trouver un moyen de récupérer les terrain
+        }
     }
     if(this->serial_Player == 1)
     {

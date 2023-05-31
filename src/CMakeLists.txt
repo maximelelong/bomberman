@@ -6,6 +6,7 @@ set(SOURCE_FILES
     GameElement.cpp
     Terrain.cpp
     Block.cpp
+    Bomb.cpp
 )
 
 

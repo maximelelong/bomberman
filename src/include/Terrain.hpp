@@ -23,6 +23,7 @@ class Terrain : public Displayable{
         
         Case* getCase(int x, int y)
         {
+            cout<< "dans getcase "<< x*10 + y<< endl;
             return listeCases[x*10 + y];
         }
 

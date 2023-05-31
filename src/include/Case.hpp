@@ -28,6 +28,7 @@ public:
 
     void addElem(GameElement* elem)  //ajoute un element à la liste de la case
     {
+
         liste.push_back(elem);
     }
 

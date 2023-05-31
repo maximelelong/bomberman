@@ -11,6 +11,7 @@
 #include <ctime>
 #include "Player.hpp"
 #include "Block.hpp"
+#include "Bomb.hpp"
 
 using namespace sf;
 using namespace std;
@@ -23,9 +24,12 @@ class  Visitor{
     }
     void DisplayBlock(Block* B1, RenderWindow* window)
     {   
-
         window->draw(B1->Blocks);
-    }    
+    }  
+    void DisplayBomb(Bomb* B1, RenderWindow* window)
+    {
+        window->draw(B1->Bombe);
+    }
 };
 
 
