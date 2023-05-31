@@ -23,7 +23,7 @@ class Terrain : public Displayable{
         
         Case* getCase(int x, int y)
         {
-            return listeCases[(y-1)*10 + x];
+            return listeCases[x*10 + y];
         }
 
         const int getTaille()
@@ -42,6 +42,6 @@ class Terrain : public Displayable{
     protected:
 
     
-    const int taille = 10;
+    const int taille = 11;
     
  };

@@ -5,6 +5,7 @@ set(SOURCE_FILES
     Player.cpp
     GameElement.cpp
     Terrain.cpp
+    Block.cpp
 )
 
 

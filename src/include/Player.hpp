@@ -24,6 +24,7 @@ private:
     // caractéristiques
     int speed;
     int range;
+    char* canImove();
 
 
 public:

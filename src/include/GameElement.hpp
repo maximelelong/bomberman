@@ -47,6 +47,7 @@ class GameElement : public Displayable {         //Classe abstraite representant
         int _y;
         static int numberOfObjects;
         int serial;
+        bool isABlock;
         
 
 

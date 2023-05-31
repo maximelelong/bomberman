@@ -26,7 +26,6 @@ int main(){
     Game game;
     game.setBackGround();
     Terrain T;
-
     Player P1(T);
     Player P2(T);
     Player P3(T);
@@ -37,10 +36,8 @@ int main(){
     while(game.running()){
         //update
         game.update(T);
-
         //render
         game.render(V1, T);
-        
         // draw your game
         
         

@@ -22,9 +22,10 @@ class  Visitor{
         window->draw(J1->Joueur);
     }
     void DisplayBlock(Block* B1, RenderWindow* window)
-    {
+    {   
+
         window->draw(B1->Blocks);
-    }   
+    }    
 };
 
 

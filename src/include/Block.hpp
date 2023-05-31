@@ -11,20 +11,23 @@
 #include <ctime>
 #include "GameElement.hpp"
 
+using namespace sf;
 class Block : public GameElement{
 
     private:
 
-        bool IsDestructable;
 
     public:
 
-    Block(Terrain& t, int x, int y, bool Destructable);
-    // destructor
-    //~Block();
-    void display(Visitor* V1, RenderWindow* Window);
-    // shape
-    RectangleShape Blocks;
+        bool IsDestructable;
+        Block(Terrain& t, int x, int y);
+        // destructor
+        //~Block();
+        void display(Visitor* V1, RenderWindow* Window);
+        // shape
+        Sprite  Blocks;
+        Texture texture;
+
 
 };
 

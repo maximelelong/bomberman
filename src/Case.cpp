@@ -16,7 +16,8 @@ void Case::suppElem(GameElement* elem){    //parcourt la liste, et si l'element 
     }
 
 void Case::display(Visitor* V1, RenderWindow* Window){  //parcourt la liste d'element d'une case et les affiches
-    for (GameElement *it : this->liste){
-            it->display(V1, Window);
-        }
+    for (int i = 0 ; i<liste.size(); i++)
+    {
+        liste[i]->display(V1, Window);
+    }
 }

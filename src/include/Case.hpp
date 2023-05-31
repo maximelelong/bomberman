@@ -21,6 +21,7 @@ public:
     Case()  //constructeur
     {  // on met des pointeurs pour permettre le polymorphisme
         vector<GameElement*> liste;
+
     };
     //~Case(){};  //Destructeur TODO
     void display(Visitor* V1, sf::RenderWindow* Window);   // affiche le contenu de la case
@@ -30,12 +31,17 @@ public:
         liste.push_back(elem);
     }
 
+    vector<GameElement*> getListe(){return this->liste;}
 
     void suppElem(GameElement* elem);
 
 protected:
-
+    
+    /**
+     * liste des game element de la case
+    */
     vector<GameElement*> liste;
+
 
 };
 

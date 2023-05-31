@@ -17,7 +17,7 @@ void Game::initVariables()
 
 void Game::initWindow()
 {
-    this->window = new RenderWindow(VideoMode(640, 480), "game 1", Style::Titlebar | Style::Close);
+    this->window = new RenderWindow(VideoMode(704, 528), "Bomberman", Style::Titlebar | Style::Resize | Style::Close);
 
     this->window->setFramerateLimit(20);
 }
@@ -154,8 +154,8 @@ void Game::updateMousePosition()
 
 void Game::setBackGround()
 {
-    for (int i = 0; i<10; i++){
-        for(int j = 0; j<10; j++){
+    for (int i = 0; i<11; i++){
+        for(int j = 0; j<11; j++){
             this->Case.setPosition(64*i, 48*j);
             this->Case.setOutlineThickness(2);
             this->Case.setOutlineColor(Color::Red);
