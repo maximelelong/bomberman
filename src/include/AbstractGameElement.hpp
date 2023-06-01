@@ -20,7 +20,8 @@ public :
     
     bool moveTo(const int& x, const int& y);      //deplace un element
 
-    virtual void update(std::vector<sf::Event>& userInputs) = 0; // update game element based on user inputs
+    // To be overriden by subclasses (not mandatory)
+    virtual void update(std::vector<sf::Keyboard::Key>& userInputs) {}; // update game element based on user inputs
 
 protected :
     int x_;

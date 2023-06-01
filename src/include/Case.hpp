@@ -25,7 +25,8 @@ public:
     void addElem(AbstractGameElement* elem);
     // remove an element from the list with the matching serial
     void suppElem(AbstractGameElement* elem);
-    void update(std::vector<sf::Event>& userInputs);
+
+    void update(std::vector<sf::Keyboard::Key>& userInputs);
 
     // accessors
     const uint& x() const   { return this->x_;}
@@ -33,6 +34,14 @@ public:
     // return reference to the list of game elements
     std::vector<AbstractGameElement*>& gameElements() { return this->gameElements_;}
 
+    // 'contains' functions
+    bool containsBomb();
+    bool containsPlayer();
+    bool containsIndestructibleBlock();
+    bool containsDestructibleBlock();
+    bool containsBonus();
+
+    bool applyExplosion();
 
 protected:
 

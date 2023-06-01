@@ -79,9 +79,9 @@ void SFMLRenderer::displayBlock(Block* block){
     sprite.setTexture(texture_);
 
     if (block->isDestructible()){
-        sprite.setTextureRect(sf::IntRect(57, 205, 16, 16));
-    } else {
         sprite.setTextureRect(sf::IntRect(78, 205, 16, 16));
+    } else {
+        sprite.setTextureRect(sf::IntRect(57, 205, 16, 16));
     }
 
     sprite.setPosition(block->x() * 16, block->y() * 16);
@@ -89,11 +89,78 @@ void SFMLRenderer::displayBlock(Block* block){
 }
 
 void SFMLRenderer::displayBomb(Bomb* bomb){
-    sf::Sprite sprite;
-    sprite.setTexture(texture_);
-    sprite.setTextureRect(sf::IntRect(188, 204, 16, 16));
-    sprite.setPosition(bomb->x() * 16, bomb->y() * 16);
-    this->objectsSprites_.push_back(sprite);
+    
+    if (bomb->exploding())
+    {
+        sf::Sprite sprite_explosion_center;
+        sprite_explosion_center.setTexture(texture_);
+        sprite_explosion_center.setTextureRect(sf::IntRect(69, 477, 16, 16));
+        sprite_explosion_center.setPosition(bomb->x() * 16, bomb->y() * 16);
+
+        sf::Sprite sprite_explosion_up;
+        sprite_explosion_up.setTexture(texture_);
+        sprite_explosion_up.setTextureRect(sf::IntRect(69, 461, 16, 16));
+        sf::Sprite sprite_explosion_down;
+        sprite_explosion_down.setTexture(texture_);
+        sprite_explosion_down.setTextureRect(sf::IntRect(69, 491, 16, 16));
+        sf::Sprite sprite_explosion_left;
+        sprite_explosion_left.setTexture(texture_);
+        sprite_explosion_left.setTextureRect(sf::IntRect(54, 476, 16, 16));
+        sf::Sprite sprite_explosion_right;
+        sprite_explosion_right.setTexture(texture_);
+        sprite_explosion_right.setTextureRect(sf::IntRect(84, 476, 16, 16));
+
+        //iterate over the bomb affected cases
+        for (Case* case_ : bomb->affectedCases())
+        {
+            // if the case is the bomb's position, draw the center sprite
+            if (case_->x() == bomb->x() && case_->y() == bomb->y())
+            {
+                sprite_explosion_center.setPosition(case_->x() * 16, case_->y() * 16);
+                this->objectsSprites_.push_back(sprite_explosion_center);
+
+            }
+            // if the case is on the same line as the bomb, draw the horizontal sprite
+            else if (case_->y() == bomb->y())
+            {
+                // if the case is on the left of the bomb, draw the left sprite
+                if (case_->x() < bomb->x())
+                {
+                    sprite_explosion_left.setPosition(case_->x() * 16, case_->y() * 16);
+                    this->objectsSprites_.push_back(sprite_explosion_left);
+                }
+                else
+                {
+                    sprite_explosion_right.setPosition(case_->x() * 16, case_->y() * 16);
+                    this->objectsSprites_.push_back(sprite_explosion_right);
+                }
+            }
+            // if the case is on the same column as the bomb, draw the vertical sprite
+            else if (case_->x() == bomb->x())
+            {
+                // if the case is above the bomb, draw the up sprite
+                if (case_->y() < bomb->y())
+                {
+                    sprite_explosion_up.setPosition(case_->x() * 16, case_->y() * 16);
+                    this->objectsSprites_.push_back(sprite_explosion_up);
+                }
+                else
+                {
+                    sprite_explosion_down.setPosition(case_->x() * 16, case_->y() * 16);
+                    this->objectsSprites_.push_back(sprite_explosion_down);
+                }
+            }
+        }
+
+
+    } else {    // not exploding
+        
+        sf::Sprite sprite_not_exploded;
+        sprite_not_exploded.setTexture(texture_);
+        sprite_not_exploded.setTextureRect(sf::IntRect(188, 204, 16, 16));
+        sprite_not_exploded.setPosition(bomb->x() * 16, bomb->y() * 16);
+        this->objectsSprites_.push_back(sprite_not_exploded);
+    }
 
     
 }

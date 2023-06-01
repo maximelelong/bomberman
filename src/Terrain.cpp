@@ -36,14 +36,14 @@ Terrain::Terrain()
             // if the case is on the border, we add an indestructible block
             if (i == 0 || j == 0 || i == sizeX_ - 1 || j == sizeY_ - 1)
             {
-                getCase(i, j)->addElem(new Block(i, j, true));
+                getCase(i, j)->addElem(new Block(i, j, false));
             }
         }
     }
     // add some blocks
-    getCase(2, 2)->addElem(new Block(2, 2, false));
-    getCase(2, 3)->addElem(new Block(2, 3, false));
-    getCase(2, 4)->addElem(new Block(2, 4, false));
+    getCase(2, 2)->addElem(new Block(2, 2, true));
+    getCase(2, 3)->addElem(new Block(2, 3, true));
+    getCase(2, 4)->addElem(new Block(2, 4, true));
 
 
     // add a player
@@ -54,7 +54,7 @@ Terrain::Terrain()
     getCase(9, 9)->addElem(player2);
 
     // add a bomb
-    getCase(3, 3)->addElem(new Bomb(3, 3, player1));
+    // getCase(3, 3)->addElem(new Bomb(3, 3, player1));
 }
 
 Case* Terrain::getCase(const uint& x, const uint& y) const{

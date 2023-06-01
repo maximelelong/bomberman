@@ -16,17 +16,20 @@ public:
 
     // overriden display from Displayable
     void display(SFMLRenderer& renderer) override;
-    void update(std::vector<sf::Event>& userInputs);
+    void update(std::vector<sf::Keyboard::Key>& userInputs);
 
     // accessors
     const int& id() const   { return this->id_;}
     const int& speed() const   { return this->speed_;}
     const int& bombCapacity() const   { return this->bombCapacity_;}
     const int& bombRange() const   { return this->bombRange_;}
+    const int& bombCount() const   { return this->bombCount_;}
+    const bool& isDying() const   { return this->isDying_;}
     // Setters
-    void setSpeed(const int& speed) { this->speed_ = speed;}
-    void setBombCapacity(const int& bombCapacity) { this->bombCapacity_ = bombCapacity;}
-    void setBombRange(const int& bombRange) { this->bombRange_ = bombRange;}
+    int& speed()   { return this->speed_;}
+    int& bombCapacity()   { return this->bombCapacity_;}
+    int& bombRange()   { return this->bombRange_;}
+    int& bombCount()   { return this->bombCount_;}
 
     bool placeBomb();
 
@@ -34,13 +37,15 @@ private:
 
     // caractéristiques
     int id_;
-    int speed_;
-    int bombCapacity_;
-    int bombRange_;
-    int bombCount_;
+    int speed_ = 0;
+    int bombCapacity_ = 0;
+    int bombRange_ = 0;
+    int bombCount_ = 0;
+
+    bool isDying_ = false;
 
     bool canMove(const uint& x, const uint& y);
-    bool handleKeyStroke(const sf::Event& event);
+    bool handleKey(const sf::Keyboard::Key& key);
     static int s_playerCount;
     
 };

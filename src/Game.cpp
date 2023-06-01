@@ -2,7 +2,9 @@
 #include "Terrain.hpp"
 #include "Case.hpp"
 #include "Player.hpp"
+#include "KeyEventHandler.hpp"
 
+const int Game::GAME_LOOP_TIME_MS = 1000/100;
 
 // constructors and destructors
 Game::Game(){
@@ -17,22 +19,35 @@ Game::~Game(){
 }
 
 void Game::run(){
-    this->running = true;
     std::cout << "Game is running" << std::endl;
+    this->running = true;
+    KeyEventHandler keyEventHandler;
+
+    // Game loop clock
+    
+    sf::Clock gameLoopClock;
     while (running)
     {
-        std::vector<sf::Event> inputs = this->gatherInputs();
-        // handle high level inputs
-        for (uint i = 0; i < inputs.size(); i++)
-        {
-            if (inputs[i].type == sf::Event::Closed)
-            {
+        std::vector<sf::Event> rawInputs = this->gatherInputs();
+        // if the rawInputs contains a quit event, stop the game
+        
+        for (uint i = 0; i < rawInputs.size(); i++)
+        {   sf::Event currentEvent = rawInputs[i];
+            if (currentEvent.type == sf::Event::Closed || (currentEvent.type == sf::Event::KeyPressed && currentEvent.key.code == sf::Keyboard::Escape)){
                 this->running = false;
             }
         }
 
-        this->update(inputs);
+        keyEventHandler.updateMap(rawInputs);
+        std::vector<sf::Keyboard::Key> pressedKeys = keyEventHandler.getPressedKeys();
+
+        
+        this->update(pressedKeys);
         this->render();
+
+        sf::Time timeToSleep = sf::milliseconds(Game::GAME_LOOP_TIME_MS) - gameLoopClock.restart();
+        if (timeToSleep.asMicroseconds() > 0)
+            sf::sleep(timeToSleep);
     }
 
 }
@@ -47,7 +62,7 @@ std::vector<sf::Event> Game::gatherInputs(){
     return inputs;
 }
 
-void Game::update(std::vector<sf::Event>& inputs){
+void Game::update(std::vector<sf::Keyboard::Key>& inputs){
     // iterate over case in terrain
     for (uint i = 0; i < this->terrain->sizeX(); i++)
     {

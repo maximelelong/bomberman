@@ -4,10 +4,12 @@ set(SOURCE_FILES
     Game.cpp
     Player.cpp
     Block.cpp
+    PowerUp.cpp
     Bomb.cpp
     AbstractGameElement.cpp
     Terrain.cpp
     SFMLRenderer.cpp
+    KeyEventHandler.cpp
 )
 
 

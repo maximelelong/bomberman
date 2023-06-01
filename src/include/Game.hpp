@@ -25,7 +25,7 @@ private:
     
     // private functions
     std::vector<sf::Event> gatherInputs();
-    void update(std::vector<sf::Event>& inputs);
+    void update(std::vector<sf::Keyboard::Key>& inputs);
     void render();
 
 public:
@@ -34,6 +34,7 @@ public:
     ~Game();
 
     void run();
+    static const int GAME_LOOP_TIME_MS;
 
 };
 
