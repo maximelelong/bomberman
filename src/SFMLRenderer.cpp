@@ -61,9 +61,11 @@ void SFMLRenderer::displayTerrain(Terrain* terrain){
 void SFMLRenderer::displayPlayer(Player* player){
     sf::Sprite sprite;
     sprite.setTexture(texture_);
-
+    sprite.setOrigin(7.5, 10);
+    
     if(player->id() == 0) {
         sprite.setTextureRect(sf::IntRect(42, 167, 17, 20));
+        // set origin to the center of the sprite
     } else if (player->id() == 1) {
         sprite.setTextureRect(sf::IntRect(120, 167, 17, 20));
     } else if (player->id() == 2) {

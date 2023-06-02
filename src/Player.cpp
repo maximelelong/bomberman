@@ -4,13 +4,16 @@
 #include "Block.hpp"
 #include "Bomb.hpp"
 #include <vector>
+#include <iostream>
+// for ceil
+#include <cmath>
 
 int Player::s_playerCount = 0;
 
-Player::Player(const uint& startPosX, const uint& startPosY) : AbstractGameElement(startPosX, startPosY)
+Player::Player(const float& startPosX, const float& startPosY) : AbstractGameElement(startPosX, startPosY)
 {
     this->id_ = Player::s_playerCount++;
-    this->speed_ = 1;
+    this->speed_ = 0.1;
     this->bombCapacity_ = 1;
     this->bombRange_ = 1;
 }
@@ -24,8 +27,8 @@ bool Player::handleKey(const sf::Keyboard::Key &key) {
     // we suppose that we handle the key pressed event
     bool handled = true;
 
-    int nextX = this->x_;
-    int nextY = this->y_;
+    float nextX = this->x_;
+    float nextY = this->y_;
 
     switch (this->id_)
     {
@@ -101,22 +104,63 @@ void Player::update(std::vector<sf::Keyboard::Key>& userInputs){
     }
 }
 
-bool Player::canMove(const uint& nextX, const uint& nextY){
+bool Player::canMove(const float& nextX, const float& nextY){
 
     Terrain* terrain = Terrain::GetInstance();
-    Case* caseNext = terrain->getCase(nextX, nextY);
 
-    if (caseNext == nullptr){
-        return false;
+    // if the player hitbox is currently touching a bomb (possible only if the player just placed a bomb)
+    // he should be able to move (to avoid being stuck)
+
+    // compute position of the corners of the hitbox
+    float hitboxCurr_x1 = this->x_ - this->hitboxWidth_/2;
+    float hitboxCurr_x2 = this->x_ + this->hitboxWidth_/2;
+    float hitboxCurr_y1 = this->y_ - this->hitboxHeight_/2;
+    float hitboxCurr_y2 = this->y_ + this->hitboxHeight_/2;
+
+    // get the case in which each corner is
+    Case* topLeftCase = terrain->getCase(hitboxCurr_x1, hitboxCurr_y1);
+    Case* topRightCase = terrain->getCase(hitboxCurr_x2, hitboxCurr_y1);
+    Case* bottomLeftCase = terrain->getCase(hitboxCurr_x1, hitboxCurr_y2);
+    Case* bottomRightCase = terrain->getCase(hitboxCurr_x2, hitboxCurr_y2);
+
+    // iterate over all cases and check if there is a bomb in it
+    std::vector<Case*> currCorners = {topLeftCase, topRightCase, bottomLeftCase, bottomRightCase};
+    for (auto it = currCorners.begin(); it != currCorners.end(); ++it){
+        Case* currCase = *it;
+        // check if not nullptr
+        if (currCase){
+            // check if there is a bomb in the case
+            bool containsBomb = currCase->containsBomb();
+            if (containsBomb){
+                return true;
+            }
+        }
     }
+    
+    // compute position of the corners of the hitbox
+    float hitboxNext_x1 = nextX - this->hitboxWidth_/2;
+    float hitboxNext_x2 = nextX + this->hitboxWidth_/2;
+    float hitboxNext_y1 = nextY - this->hitboxHeight_/2;
+    float hitboxNext_y2 = nextY + this->hitboxHeight_/2;
 
-    // check if there is a block or a bomb on the next case
-    std::vector<AbstractGameElement*> elements = caseNext->gameElements();
-    for (size_t i = 0; i < elements.size(); i++)
-    {
-        // check type of element
-        if (typeid(*elements[i]) == typeid(Block) || typeid(*elements[i]) == typeid(Bomb)){
-            return false;
+    // get the case in which each corner is
+    Case* nextTopLeftCase = terrain->getCase(hitboxNext_x1, hitboxNext_y1);
+    Case* nextTopRightCase = terrain->getCase(hitboxNext_x2, hitboxNext_y1);
+    Case* nextBottomLeftCase = terrain->getCase(hitboxNext_x1, hitboxNext_y2);
+    Case* nextBottomRightCase = terrain->getCase(hitboxNext_x2, hitboxNext_y2);
+
+    // iterate over all cases and check if there is a block in it
+    std::vector<Case*> corners = {nextTopLeftCase, nextTopRightCase, nextBottomLeftCase, nextBottomRightCase};
+    for (auto it = corners.begin(); it != corners.end(); ++it){
+        Case* currCase = *it;
+        // check if not nullptr
+        if (currCase){
+            // check if there is a block in the case
+            bool containsBlock = currCase->containsIndestructibleBlock() || currCase->containsDestructibleBlock();
+            bool containsBomb = currCase->containsBomb();
+            if (containsBlock || containsBomb){
+                return false;
+            }
         }
     }
 

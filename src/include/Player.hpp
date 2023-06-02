@@ -10,7 +10,7 @@ class Player : public AbstractGameElement
 
 public:
     // constructor
-    Player(const uint& startPosX, const uint& startPosY);
+    Player(const float& startPosX, const float& startPosY);
     // destructor
     //~Player();
 
@@ -20,13 +20,13 @@ public:
 
     // accessors
     const int& id() const   { return this->id_;}
-    const int& speed() const   { return this->speed_;}
+    const float& speed() const   { return this->speed_;}
     const int& bombCapacity() const   { return this->bombCapacity_;}
     const int& bombRange() const   { return this->bombRange_;}
     const int& bombCount() const   { return this->bombCount_;}
     const bool& isDying() const   { return this->isDying_;}
     // Setters
-    int& speed()   { return this->speed_;}
+    float& speed()   { return this->speed_;}
     int& bombCapacity()   { return this->bombCapacity_;}
     int& bombRange()   { return this->bombRange_;}
     int& bombCount()   { return this->bombCount_;}
@@ -37,14 +37,18 @@ private:
 
     // caractéristiques
     int id_;
-    int speed_ = 0;
+    float speed_ = 0;
     int bombCapacity_ = 0;
     int bombRange_ = 0;
     int bombCount_ = 0;
 
+    // hitbox
+    float hitboxWidth_ = 0.8;
+    float hitboxHeight_ = 0.9;
+
     bool isDying_ = false;
 
-    bool canMove(const uint& x, const uint& y);
+    bool canMove(const float& x, const float& y);
     bool handleKey(const sf::Keyboard::Key& key);
     static int s_playerCount;
     

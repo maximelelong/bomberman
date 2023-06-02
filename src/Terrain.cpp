@@ -47,10 +47,10 @@ Terrain::Terrain()
 
 
     // add a player
-    Player *player1 = new Player(1, 1);
+    Player *player1 = new Player(5, 5);
     getCase(1, 1)->addElem(player1);
     // add another player
-    Player *player2 = new Player(9, 9);
+    Player *player2 = new Player(9.5, 9.5);
     getCase(9, 9)->addElem(player2);
 
     // add a bomb

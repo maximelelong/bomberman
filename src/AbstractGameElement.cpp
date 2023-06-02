@@ -12,11 +12,12 @@ AbstractGameElement::AbstractGameElement(const int& x, const int& y)
     serial_ = AbstractGameElement::s_nbOfInstances;
 }
 
-bool AbstractGameElement::moveTo(const int& x, const int& y){       //deplace un element
+bool AbstractGameElement::moveTo(const float& x, const float& y){       //deplace un element
     
     Terrain* terrain = Terrain::GetInstance();
-    Case* currCase = terrain->getCase(this->x(), this->y());
-    Case* nextCase = terrain->getCase(x, y);
+    Case* currCase = terrain->getCase(this->x(), this->y()); // implicit conversion from float to int (truncation)
+    Case* nextCase = terrain->getCase(x, y); // idem
+    
     if (currCase == nullptr || nextCase == nullptr){
         return false;
     }

@@ -14,18 +14,18 @@ public :
     //~AbstractGameElement();
 
     // accessors
-    const int& x() const   { return this->x_;}
-    const int& y() const   { return this->y_;}
+    const float& x() const   { return this->x_;}
+    const float& y() const   { return this->y_;}
     const int& serial() const   { return this->serial_;}
     
-    bool moveTo(const int& x, const int& y);      //deplace un element
+    bool moveTo(const float& x, const float& y);      //deplace un element
 
     // To be overriden by subclasses (not mandatory)
     virtual void update(std::vector<sf::Keyboard::Key>& userInputs) {}; // update game element based on user inputs
 
 protected :
-    int x_;
-    int y_;
+    float x_;
+    float y_;
     int serial_;
     static int s_nbOfInstances;
 };
