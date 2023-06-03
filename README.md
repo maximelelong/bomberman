@@ -1,4 +1,4 @@
-![Bomberman Titre](https://upload.wikimedia.org/wikipedia/fr/thumb/a/a5/Bomberman_Logo.svg/1280px-Bomberman_Logo.svg.png){ width=50% }
+![Bomberman Titre](https://upload.wikimedia.org/wikipedia/fr/thumb/a/a5/Bomberman_Logo.svg/1280px-Bomberman_Logo.svg.png)
 # Bomberman C++
 Jeu bomberman en C++ réalisé dans le cadre du cours de C++ de ROB4 de Polytech Sorbonne.
 
