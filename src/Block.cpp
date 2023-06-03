@@ -37,6 +37,6 @@ void Block::display(SFMLRenderer& renderer){
 }
 
 std::ostream& operator<<(std::ostream& os, const Block& block){
-    os << "Block : " << block.x() << "," << block.y() << " isDestructible : " << block.isDestructible_;
+    os << "Block: x=" << block.x() << ", y=" << block.y() << ", isDestructible=" << block.isDestructible_;
     return os;
 }
