@@ -46,7 +46,7 @@ void Bomb::update(std::vector<sf::Keyboard::Key>& userInputs){
         // check if the bomb should explode
         if (this->timer_.getElapsedTime() >= Bomb::EXPLOSION_TRIGGER_TIME){
             this->explode();
-            // reset the timer
+            // reset the timer (to time the duration of the explosion)
             this->timer_.restart();
         }
     }
@@ -63,7 +63,7 @@ void Bomb::explode() {
 
 void Bomb::computeAffectedCases() {
     Terrain* terrain = Terrain::GetInstance();
-    // retrieve bomb range
+    // retrieve bomb range  
     int bombRange = this->owner_->bombRange();
 
     // add the bomb case to the affected cases

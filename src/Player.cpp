@@ -124,6 +124,7 @@ bool Player::canMove(const float& nextX, const float& nextY){
     Case* bottomRightCase = terrain->getCase(hitboxCurr_x2, hitboxCurr_y2);
 
     // iterate over all cases and check if there is a bomb in it
+    bool playerIsTouchingBomb = false;
     std::vector<Case*> currCorners = {topLeftCase, topRightCase, bottomLeftCase, bottomRightCase};
     for (auto it = currCorners.begin(); it != currCorners.end(); ++it){
         Case* currCase = *it;
@@ -132,7 +133,8 @@ bool Player::canMove(const float& nextX, const float& nextY){
             // check if there is a bomb in the case
             bool containsBomb = currCase->containsBomb();
             if (containsBomb){
-                return true;
+                playerIsTouchingBomb = true;
+                break;
             }
         }
     }
@@ -158,7 +160,12 @@ bool Player::canMove(const float& nextX, const float& nextY){
             // check if there is a block in the case
             bool containsBlock = currCase->containsIndestructibleBlock() || currCase->containsDestructibleBlock();
             bool containsBomb = currCase->containsBomb();
-            if (containsBlock || containsBomb){
+
+            if (containsBlock){
+                return false;
+            }
+            // the player can move on a bomb only to move out of it
+            if (containsBomb && !playerIsTouchingBomb){
                 return false;
             }
         }

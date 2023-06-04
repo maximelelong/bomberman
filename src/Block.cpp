@@ -26,7 +26,6 @@ void Block::destroy(){
     if(currCase != nullptr){
         currCase->suppElem(this);
     }
-    currCase->suppElem(this);
     // delete the block
     delete this;
 

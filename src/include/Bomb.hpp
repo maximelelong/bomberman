@@ -36,7 +36,5 @@ private:
 
     void explode();
     void computeAffectedCases();
-    void applyExplosionToCase(Case* currentCase);
-
 };
 #endif
