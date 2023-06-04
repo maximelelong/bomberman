@@ -12,6 +12,9 @@ class Terrain;
 class Case;
 class Block;
 class Bomb;
+class PowerUpSkate;
+class PowerUpBomb;
+class PowerUpDeath;
 class SFMLRenderer
 {
 
@@ -24,7 +27,9 @@ public:
     void displayCase(Case* case_);
     void displayBlock(Block* block);
     void displayBomb(Bomb* bomb);
-
+    void displayPowerUpSkate(PowerUpSkate* skate);
+    void displayPowerUpDeath(PowerUpDeath* Death);
+    void displayPowerUpBomb(PowerUpBomb* Bomb);
 
     // Getters and setters
     sf::RenderWindow& window() { return this->window_; }
@@ -36,6 +41,7 @@ public:
 private:
     sf::RenderWindow window_;
     sf::Texture texture_;
+    sf::Texture texture_2;
 
     std::vector<sf::Sprite> backgroundSprites_;
     std::vector<sf::Sprite> blocksSprites_;

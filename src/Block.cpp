@@ -31,6 +31,11 @@ void Block::destroy(){
 
 }
 
+void Block::setPower(PowerUp *PU)
+{
+    this->powerUp_= PU;
+}
+
 void Block::display(SFMLRenderer& renderer){
     renderer.displayBlock(this);
 }

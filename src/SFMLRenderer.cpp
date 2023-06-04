@@ -4,6 +4,9 @@
 #include "Player.hpp"
 #include "Block.hpp"
 #include "Bomb.hpp"
+#include "PowerUpSkate.hpp"
+#include "PowerUpDeath.hpp"
+#include "PowerUpBomb.hpp"
 #include <iostream>
 
 SFMLRenderer::SFMLRenderer(){
@@ -23,6 +26,11 @@ SFMLRenderer::SFMLRenderer(){
     
     // load the texture
     if (!texture_.loadFromFile("../assets/bomberman_texture.gif"))
+    {
+        std::cout << "Error while loading texture" << std::endl;
+    }
+
+    if (!texture_2.loadFromFile("../assets/bomberman_texture.png"))
     {
         std::cout << "Error while loading texture" << std::endl;
     }
@@ -165,6 +173,33 @@ void SFMLRenderer::displayBomb(Bomb* bomb){
     }
 
     
+}
+
+void SFMLRenderer::displayPowerUpSkate(PowerUpSkate* skate)
+{
+    sf::Sprite sprite_power_up;
+    sprite_power_up.setTexture(texture_2);
+    sprite_power_up.setTextureRect(sf::IntRect(6, 55, 16, 16));
+    sprite_power_up.setPosition(skate->x() * 16, skate->y() * 16);
+    this->objectsSprites_.push_back(sprite_power_up);
+}
+
+void SFMLRenderer::displayPowerUpDeath(PowerUpDeath* death)
+{
+    sf::Sprite sprite_power_up;
+    sprite_power_up.setTexture(texture_2);
+    sprite_power_up.setTextureRect(sf::IntRect(66, 55, 16, 16));
+    sprite_power_up.setPosition(death->x() * 16, death->y() * 16);
+    this->objectsSprites_.push_back(sprite_power_up);
+}
+
+void SFMLRenderer::displayPowerUpBomb(PowerUpBomb* bomb)
+{
+    sf::Sprite sprite_power_up;
+    sprite_power_up.setTexture(texture_2);
+    sprite_power_up.setTextureRect(sf::IntRect(46, 55, 16, 16));
+    sprite_power_up.setPosition(bomb->x() * 16, bomb->y() * 16);
+    this->objectsSprites_.push_back(sprite_power_up);
 }
 
 void SFMLRenderer::render(){

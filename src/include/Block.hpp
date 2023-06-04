@@ -3,7 +3,8 @@
 #include <vector>
 #include "AbstractGameElement.hpp"
 #include "SFMLRenderer.hpp"
-#include "PowerUp.hpp"
+
+class PowerUp;
 
 class Block : public AbstractGameElement
 {
@@ -19,7 +20,7 @@ public:
     // accessors
     const bool& isDestructible() const   { return this->isDestructible_;}
     void destroy();
-
+    void setPower(PowerUp* PU);
     // operators stream
     friend std::ostream& operator<<(std::ostream& os, const Block& block);
 private:

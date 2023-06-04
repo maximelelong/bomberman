@@ -1,6 +1,10 @@
 #include "Terrain.hpp"
 #include "Block.hpp"
 #include "Bomb.hpp"
+#include "PowerUpSkate.hpp"
+#include "PowerUpDeath.hpp"
+#include "PowerUpBomb.hpp"
+#include <iostream>
 
 // static variables
 Terrain* Terrain::s_instance{nullptr};
@@ -52,6 +56,9 @@ Terrain::Terrain()
     // add another player
     Player *player2 = new Player(9.5, 9.5);
     getCase(9, 9)->addElem(player2);
+    getCase(6, 7)->addElem(new PowerUpSkate(6, 7));
+    getCase(6, 6)->addElem(new PowerUpDeath(6, 6));
+    getCase(6, 5)->addElem(new PowerUpBomb(6, 5));
 
     // add a bomb
     // getCase(3, 3)->addElem(new Bomb(3, 3, player1));

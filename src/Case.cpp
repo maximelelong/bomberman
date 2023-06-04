@@ -3,6 +3,9 @@
 #include "Block.hpp"
 #include "Bomb.hpp"
 #include "Player.hpp"
+#include "PowerUpSkate.hpp"
+#include "PowerUpDeath.hpp"
+#include "PowerUpBomb.hpp"
 
 
 Case::Case(const uint x, const uint y)
@@ -105,4 +108,19 @@ bool Case::applyExplosion(){
         }
     }
     return hasBeenDestroyed;
+}
+
+bool Case::isPowerUp(int nb){
+    AbstractGameElement* elem = this->gameElements_[nb];
+    if ((typeid(*elem) == typeid(PowerUpSkate))||(typeid(*elem) == typeid(PowerUpDeath))||((typeid(*elem) == typeid(PowerUpBomb)))){
+        return true;
+    }
+    return false;
+}
+
+PowerUp* Case::getPowerUp(int nb)
+{
+        AbstractGameElement* elem = this->gameElements_[nb];
+        PowerUp* PU = dynamic_cast<PowerUp*>(elem);
+        return PU;
 }

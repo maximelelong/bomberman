@@ -8,7 +8,7 @@
 #include "SFMLRenderer.hpp"
 #include "AbstractGameElement.hpp"
 #include "Displayable.hpp"
-
+#include "PowerUp.hpp"
 class Case : public Displayable
 {
 
@@ -31,6 +31,7 @@ public:
     // accessors
     const uint& x() const   { return this->x_;}
     const uint& y() const   { return this->y_;}
+    PowerUp* getPowerUp(int nb);
     // return reference to the list of game elements
     std::vector<AbstractGameElement*>& gameElements() { return this->gameElements_;}
 
@@ -39,7 +40,7 @@ public:
     bool containsPlayer();
     bool containsIndestructibleBlock();
     bool containsDestructibleBlock();
-    bool containsBonus();
+    bool isPowerUp(int nb);
 
     bool applyExplosion();
 

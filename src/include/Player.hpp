@@ -51,6 +51,7 @@ private:
     bool canMove(const float& x, const float& y);
     bool handleKey(const sf::Keyboard::Key& key);
     static int s_playerCount;
+    void PowerUpOnCase();
     
 };
 

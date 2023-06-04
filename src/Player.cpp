@@ -47,6 +47,9 @@ bool Player::handleKey(const sf::Keyboard::Key &key) {
         case sf::Keyboard::Right:
             nextX = this->x_ + this->speed_;
             break;
+        case sf::Keyboard::C:
+            this->placeBomb();
+            break;
         default:
             // we don't handle this event
             handled = false;
@@ -90,6 +93,21 @@ bool Player::handleKey(const sf::Keyboard::Key &key) {
     return handled;
 }
 
+void Player::PowerUpOnCase()
+{   
+    Terrain* terrain = Terrain::GetInstance();
+    Case* currentCase = terrain->getCase(x_,y_);
+    for (int i=0; i<currentCase->gameElements().size(); i++)
+    {
+        if(currentCase->isPowerUp(i))
+        {
+            PowerUp* PU = currentCase->getPowerUp(i);
+            PU->Apply(this);
+            currentCase->suppElem(PU);
+        }
+    }
+}
+
 void Player::update(std::vector<sf::Keyboard::Key>& userInputs){
     
     // iterate over all user inputs
@@ -102,6 +120,7 @@ void Player::update(std::vector<sf::Keyboard::Key>& userInputs){
             ++it;
         }
     }
+    this->PowerUpOnCase();
 }
 
 bool Player::canMove(const float& nextX, const float& nextY){
@@ -130,7 +149,7 @@ bool Player::canMove(const float& nextX, const float& nextY){
         Case* currCase = *it;
         // check if not nullptr
         if (currCase){
-            // check if there is a bomb in the case
+            // check if the is a bomb in the case
             bool containsBomb = currCase->containsBomb();
             if (containsBomb){
                 playerIsTouchingBomb = true;
@@ -175,6 +194,7 @@ bool Player::canMove(const float& nextX, const float& nextY){
 }
 
 bool Player::placeBomb(){
+    std::cout<< this->bombCount_<<" "<<this->bombCapacity_<<std::endl;
     if (this->bombCount_ >= this->bombCapacity_){
         return false;
     }
