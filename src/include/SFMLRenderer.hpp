@@ -15,6 +15,7 @@ class Bomb;
 class PowerUpSkate;
 class PowerUpBomb;
 class PowerUpDeath;
+class PowerUpRange;
 class SFMLRenderer
 {
 
@@ -30,6 +31,7 @@ public:
     void displayPowerUpSkate(PowerUpSkate* skate);
     void displayPowerUpDeath(PowerUpDeath* Death);
     void displayPowerUpBomb(PowerUpBomb* Bomb);
+    void displayPowerUpRange(PowerUpRange* Range);
 
     // Getters and setters
     sf::RenderWindow& window() { return this->window_; }

@@ -4,6 +4,7 @@
 #include "PowerUpSkate.hpp"
 #include "PowerUpDeath.hpp"
 #include "PowerUpBomb.hpp"
+#include "PowerUpRange.hpp"
 #include <iostream>
 
 // static variables
@@ -59,6 +60,7 @@ Terrain::Terrain()
     getCase(6, 7)->addElem(new PowerUpSkate(6, 7));
     getCase(6, 6)->addElem(new PowerUpDeath(6, 6));
     getCase(6, 5)->addElem(new PowerUpBomb(6, 5));
+    getCase(6, 4)->addElem(new PowerUpRange(6, 4));
 
     // add a bomb
     // getCase(3, 3)->addElem(new Bomb(3, 3, player1));

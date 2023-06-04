@@ -194,12 +194,12 @@ bool Player::canMove(const float& nextX, const float& nextY){
 }
 
 bool Player::placeBomb(){
-    std::cout<< this->bombCount_<<" "<<this->bombCapacity_<<std::endl;
-    if (this->bombCount_ >= this->bombCapacity_){
+    Terrain* terrain = Terrain::GetInstance();
+    
+    
+    if ((this->bombCount_ >= this->bombCapacity_)||(terrain->getCase(this->x_,this->y_)->containsBomb())){
         return false;
     }
-    
-    Terrain* terrain = Terrain::GetInstance();
     Case* currCase = terrain->getCase(this->x_, this->y_);
 
     Bomb* bomb = new Bomb(this->x_, this->y_, this);

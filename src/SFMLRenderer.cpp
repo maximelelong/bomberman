@@ -7,6 +7,7 @@
 #include "PowerUpSkate.hpp"
 #include "PowerUpDeath.hpp"
 #include "PowerUpBomb.hpp"
+#include "PowerUpRange.hpp"
 #include <iostream>
 
 SFMLRenderer::SFMLRenderer(){
@@ -199,6 +200,15 @@ void SFMLRenderer::displayPowerUpBomb(PowerUpBomb* bomb)
     sprite_power_up.setTexture(texture_2);
     sprite_power_up.setTextureRect(sf::IntRect(46, 55, 16, 16));
     sprite_power_up.setPosition(bomb->x() * 16, bomb->y() * 16);
+    this->objectsSprites_.push_back(sprite_power_up);
+}
+
+void SFMLRenderer::displayPowerUpRange(PowerUpRange *Range)
+{
+    sf::Sprite sprite_power_up;
+    sprite_power_up.setTexture(texture_2);
+    sprite_power_up.setTextureRect(sf::IntRect(46, 75, 16, 16));
+    sprite_power_up.setPosition(Range->x() * 16, Range->y() * 16);
     this->objectsSprites_.push_back(sprite_power_up);
 }
 

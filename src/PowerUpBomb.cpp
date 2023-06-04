@@ -10,5 +10,5 @@ void PowerUpBomb::display(SFMLRenderer& renderer)
 
 void PowerUpBomb::Apply(Player* owner)
 {   
-    owner->bombRange()++;
+    owner->bombCapacity()++;
 }

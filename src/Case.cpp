@@ -6,6 +6,7 @@
 #include "PowerUpSkate.hpp"
 #include "PowerUpDeath.hpp"
 #include "PowerUpBomb.hpp"
+#include "PowerUpRange.hpp"
 
 
 Case::Case(const uint x, const uint y)
@@ -112,7 +113,7 @@ bool Case::applyExplosion(){
 
 bool Case::isPowerUp(int nb){
     AbstractGameElement* elem = this->gameElements_[nb];
-    if ((typeid(*elem) == typeid(PowerUpSkate))||(typeid(*elem) == typeid(PowerUpDeath))||((typeid(*elem) == typeid(PowerUpBomb)))){
+    if ((typeid(*elem) == typeid(PowerUpSkate))||(typeid(*elem) == typeid(PowerUpDeath))||(typeid(*elem) == typeid(PowerUpBomb))||((typeid(*elem) == typeid(PowerUpRange)))){
         return true;
     }
     return false;
