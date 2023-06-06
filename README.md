@@ -3,9 +3,9 @@
 Jeu bomberman en C++ réalisé dans le cadre du cours de C++ de ROB4 de Polytech Sorbonne.
 
 ## Dépendances
-//  TODO
-## Comment jouer
-// TODO
+Linux only:
+- CMake
+- SFML
 
 ## Compilation du projet
 Pour compiler le projet, exécuter les commandes suivantes à la racine du projet:
