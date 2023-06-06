@@ -1,18 +1,11 @@
 #include "PowerUpSkate.hpp"
-#include "PowerUpDeath.hpp"
-#include "Case.hpp"
-#include "Terrain.hpp"
+#include "Player.hpp"
 
-void PowerUpSkate::display(SFMLRenderer& renderer)
+const float PowerUpSkate::SPEED_INCREASE = 0.05;
+void PowerUpSkate::apply(Player* owner)
 {
-    renderer.displayPowerUpSkate(this);
-}
-
-
-void PowerUpSkate::Apply(Player* owner)
-{
-    if(owner->speed()<0.2)
+    if(owner->speed()+SPEED_INCREASE < Player::MAX_SPEED)
     {
-        owner->speed()+=0.1;
+        owner->speed() += SPEED_INCREASE;
     }
 }

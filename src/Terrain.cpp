@@ -6,6 +6,10 @@
 #include "PowerUpBomb.hpp"
 #include "PowerUpRange.hpp"
 #include <iostream>
+#include <random>
+#include <set>
+#include <typeindex>
+#include <map>
 
 // static variables
 Terrain* Terrain::s_instance{nullptr};
@@ -29,9 +33,11 @@ Terrain *Terrain::GetInstance()
 
 Terrain::Terrain()
 {
-    sizeX_ = 11;
-    sizeY_ = 11;
+    sizeX_ = 15;
+    sizeY_ = 15;
 
+    // fill the map with empty cases
+    // also add indestructible blocks on the borders
     for (uint i = 0; i < sizeX_; i++)
     {
         for (uint j = 0; j < sizeY_; j++)
@@ -45,25 +51,115 @@ Terrain::Terrain()
             }
         }
     }
-    // add some blocks
-    getCase(2, 2)->addElem(new Block(2, 2, true));
-    getCase(2, 3)->addElem(new Block(2, 3, true));
-    getCase(2, 4)->addElem(new Block(2, 4, true));
+
+    // add indestructible blocks
+    for (uint i = 2; i < sizeX_ - 2; i++)
+    {
+        for (uint j = 2; j < sizeY_ - 2; j++)
+        {
+            if (i % 2 == 0 && j % 2 == 0)
+            {
+                getCase(i, j)->addElem(new Block(i, j, false));
+            }
+        }
+    }
+
+    // fill the rest of the map with destructible blocks
+    // this means filling a row each 2 rows and a column each 2 columns
+    for (uint i = 1; i < sizeX_ - 1; i++)
+    {
+        for (uint j = 1; j < sizeY_ - 1; j++)
+        {
+            if (i % 2 == 1 || j % 2 == 1)
+            {
+                getCase(i, j)->addElem(new Block(i, j, true));
+            }
+        }
+    }
+
+    // remove the blocks at the top left and bottom right corners (for the players)
+    getCase(1, 1)->gameElements().clear();
+    getCase(1, 2)->gameElements().clear();
+    PowerUpBomb* powerUpBomb = new PowerUpBomb(1, 2);
+    getCase(1, 2)->addElem(powerUpBomb);
+    getCase(2, 1)->gameElements().clear();
+    getCase(sizeX_ - 2, sizeY_ - 2)->gameElements().clear();
+    getCase(sizeX_ - 2, sizeY_ - 3)->gameElements().clear();
+    getCase(sizeX_ - 3, sizeY_ - 2)->gameElements().clear();
+
+    // get all the cases with a destructible block
+    std::vector<Block*> destructibleBlocks;
+    for(Case* currentCase : listeCases_){
+        for(AbstractGameElement* currentElem : currentCase->gameElements()){
+            if(typeid(*currentElem) == typeid(Block)){
+                Block* currentBlock = dynamic_cast<Block*>(currentElem);
+                if(currentBlock->isDestructible()){
+                    destructibleBlocks.push_back(currentBlock);
+                }
+            }
+        }
+    }
+    
+    // Number of powerups to place in a map
+    std::map<std::type_index, int> nbPowerups;
+    nbPowerups[typeid(PowerUpSkate)] = 5;
+    nbPowerups[typeid(PowerUpDeath)] = 5;
+    nbPowerups[typeid(PowerUpBomb)] = 5;
+    nbPowerups[typeid(PowerUpRange)] = 5;
+
+    // calculate the total number of powerups
+    int nb_powerups = 0;
+    for (auto it = nbPowerups.begin(); it != nbPowerups.end(); it++)
+    {
+        nb_powerups += it->second;
+    }
+
+    // generate random indexes to place the powerups
+    std::vector<int> randomIndexes = generateUniqueIntVector(0, destructibleBlocks.size()-1, nb_powerups);
+
+    // iterate over map keys
+    for (auto it = nbPowerups.begin(); it != nbPowerups.end(); it++)
+    {
+        // iterate over the number of powerups to place
+        for (int i = 0; i < it->second; i++)
+        {
+            // get a random index
+            int randomIndex = randomIndexes.back();
+            randomIndexes.pop_back();
+
+            // get the corresponding block
+            Block* currentBlock = destructibleBlocks[randomIndex];
 
 
-    // add a player
-    Player *player1 = new Player(5, 5);
+
+            // add the powerup
+            if (it->first == typeid(PowerUpSkate))
+            {
+                currentBlock->setPower(new PowerUpSkate(currentBlock->x(), currentBlock->y()));
+            }
+            else if (it->first == typeid(PowerUpDeath))
+            {
+                currentBlock->setPower(new PowerUpDeath(currentBlock->x(), currentBlock->y()));
+            }
+            else if (it->first == typeid(PowerUpBomb))
+            {
+                currentBlock->setPower(new PowerUpBomb(currentBlock->x(), currentBlock->y()));
+            }
+            else if (it->first == typeid(PowerUpRange))
+            {
+                currentBlock->setPower(new PowerUpRange(currentBlock->x(), currentBlock->y()));
+            }
+        }
+    }
+    
+    
+    // add players
+    Player* player1 = new Player(1.5, 1.5);
     getCase(1, 1)->addElem(player1);
-    // add another player
-    Player *player2 = new Player(9.5, 9.5);
-    getCase(9, 9)->addElem(player2);
-    getCase(6, 7)->addElem(new PowerUpSkate(6, 7));
-    getCase(6, 6)->addElem(new PowerUpDeath(6, 6));
-    getCase(6, 5)->addElem(new PowerUpBomb(6, 5));
-    getCase(6, 4)->addElem(new PowerUpRange(6, 4));
-
-    // add a bomb
-    // getCase(3, 3)->addElem(new Bomb(3, 3, player1));
+    Player* player2 = new Player(sizeX_ - 1.5, sizeY_ - 1.5);
+    getCase(sizeX_ - 2, sizeY_ - 2)->addElem(player2);
+    listePlayers_.push_back(player1);
+    listePlayers_.push_back(player2);
 }
 
 Case* Terrain::getCase(const uint& x, const uint& y) const{
@@ -87,4 +183,24 @@ void Terrain::display(SFMLRenderer& renderer){
             currentCase->display(renderer);
         }
     }
+}
+
+void Terrain::removePlayer(Player* player){
+    listePlayers_.erase(std::remove(listePlayers_.begin(), listePlayers_.end(), player), listePlayers_.end());
+}
+
+std::vector<int> Terrain::generateUniqueIntVector(const int& min, const int& max, const int& N) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(min, max);
+    std::set<int> unique_numbers;
+    while (unique_numbers.size() < N) {
+        int size_before = unique_numbers.size();
+        unique_numbers.insert(dis(gen));
+        int size_after = unique_numbers.size();
+        if (size_after > size_before) {
+        }
+    }
+    std::vector<int> numbers(unique_numbers.begin(), unique_numbers.end());
+    return numbers;
 }

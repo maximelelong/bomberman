@@ -12,10 +12,7 @@ class Terrain;
 class Case;
 class Block;
 class Bomb;
-class PowerUpSkate;
-class PowerUpBomb;
-class PowerUpDeath;
-class PowerUpRange;
+class AbstractPowerUp;
 class SFMLRenderer
 {
 
@@ -23,15 +20,12 @@ public:
     SFMLRenderer();
     ~SFMLRenderer();
 
-    void displayPlayer(Player* player);
-    void displayTerrain(Terrain* terrain);
-    void displayCase(Case* case_);
-    void displayBlock(Block* block);
-    void displayBomb(Bomb* bomb);
-    void displayPowerUpSkate(PowerUpSkate* skate);
-    void displayPowerUpDeath(PowerUpDeath* Death);
-    void displayPowerUpBomb(PowerUpBomb* Bomb);
-    void displayPowerUpRange(PowerUpRange* Range);
+    void displayPlayer(const Player* player);
+    void displayTerrain(const Terrain* terrain);
+    void displayCase(const Case* case_);
+    void displayBlock(const Block* block);
+    void displayBomb(const Bomb* bomb);
+    void displayPowerUp(const AbstractPowerUp* powerUp);
 
     // Getters and setters
     sf::RenderWindow& window() { return this->window_; }
@@ -39,11 +33,14 @@ public:
 
     void render();
 
+    void displayWinnerScreen(const Player* player);
+
 
 private:
     sf::RenderWindow window_;
     sf::Texture texture_;
     sf::Texture texture_2;
+    sf::Font font_;
 
     std::vector<sf::Sprite> backgroundSprites_;
     std::vector<sf::Sprite> blocksSprites_;

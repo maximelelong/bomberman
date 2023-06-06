@@ -32,6 +32,13 @@ public:
     int& bombCount()   { return this->bombCount_;}
 
     bool placeBomb();
+    void die();
+
+    // default values
+    static const float DEFAULT_SPEED;
+    static const float MAX_SPEED;
+    static const int DEFAULT_BOMB_CAPACITY;
+    static const int DEFAULT_BOMB_RANGE;
 
 private:
 
@@ -43,8 +50,8 @@ private:
     int bombCount_ = 0;
 
     // hitbox
-    float hitboxWidth_ = 0.8;
-    float hitboxHeight_ = 0.9;
+    float hitboxWidth_ = 0.55;
+    float hitboxHeight_ = 0.55;
 
     bool isDying_ = false;
 

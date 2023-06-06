@@ -4,7 +4,7 @@
 // static variables
 int AbstractGameElement::s_nbOfInstances = 0;
 
-AbstractGameElement::AbstractGameElement(const int& x, const int& y)
+AbstractGameElement::AbstractGameElement(const float& x, const float& y)
 {
     x_ = x;
     y_ = y;

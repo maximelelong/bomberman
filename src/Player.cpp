@@ -3,19 +3,24 @@
 #include "Case.hpp"
 #include "Block.hpp"
 #include "Bomb.hpp"
+#include "AbstractPowerUp.hpp"
 #include <vector>
 #include <iostream>
 // for ceil
 #include <cmath>
 
 int Player::s_playerCount = 0;
+const float Player::DEFAULT_SPEED = 0.1;
+const int Player::DEFAULT_BOMB_CAPACITY = 1;
+const int Player::DEFAULT_BOMB_RANGE = 1;
+const float Player::MAX_SPEED = 0.2;
 
 Player::Player(const float& startPosX, const float& startPosY) : AbstractGameElement(startPosX, startPosY)
 {
     this->id_ = Player::s_playerCount++;
-    this->speed_ = 0.1;
-    this->bombCapacity_ = 1;
-    this->bombRange_ = 1;
+    this->speed_ = Player::DEFAULT_SPEED;
+    this->bombCapacity_ = Player::DEFAULT_BOMB_CAPACITY;
+    this->bombRange_ = Player::DEFAULT_BOMB_RANGE;
 }
 
 void Player::display(SFMLRenderer& renderer){
@@ -33,32 +38,6 @@ bool Player::handleKey(const sf::Keyboard::Key &key) {
     switch (this->id_)
     {
     case 0:         // Player 1
-        switch (key)
-        {
-        case sf::Keyboard::Up:
-            nextY = this->y_ - this->speed_;
-            break;
-        case sf::Keyboard::Down:
-            nextY = this->y_ + this->speed_;
-            break;
-        case sf::Keyboard::Left:
-            nextX = this->x_ - this->speed_;
-            break;
-        case sf::Keyboard::Right:
-            nextX = this->x_ + this->speed_;
-            break;
-        case sf::Keyboard::C:
-            this->placeBomb();
-            break;
-        default:
-            // we don't handle this event
-            handled = false;
-            break;
-        }
-        break;
-
-    case 1:    // Player 2
-
         switch (key)
         {
         case sf::Keyboard::Z:
@@ -82,6 +61,32 @@ bool Player::handleKey(const sf::Keyboard::Key &key) {
             break;
         }
         break;
+
+
+    case 1:    // Player 2
+        switch (key)
+        {
+        case sf::Keyboard::Up:
+            nextY = this->y_ - this->speed_;
+            break;
+        case sf::Keyboard::Down:
+            nextY = this->y_ + this->speed_;
+            break;
+        case sf::Keyboard::Left:
+            nextX = this->x_ - this->speed_;
+            break;
+        case sf::Keyboard::Right:
+            nextX = this->x_ + this->speed_;
+            break;
+        case sf::Keyboard::RControl:
+            this->placeBomb();
+            break;
+        default:
+            // we don't handle this event
+            handled = false;
+            break;
+        }
+        break;
     default:
         handled = false;
         break;
@@ -93,20 +98,6 @@ bool Player::handleKey(const sf::Keyboard::Key &key) {
     return handled;
 }
 
-void Player::PowerUpOnCase()
-{   
-    Terrain* terrain = Terrain::GetInstance();
-    Case* currentCase = terrain->getCase(x_,y_);
-    for (int i=0; i<currentCase->gameElements().size(); i++)
-    {
-        if(currentCase->isPowerUp(i))
-        {
-            PowerUp* PU = currentCase->getPowerUp(i);
-            PU->Apply(this);
-            currentCase->suppElem(PU);
-        }
-    }
-}
 
 void Player::update(std::vector<sf::Keyboard::Key>& userInputs){
     
@@ -120,7 +111,19 @@ void Player::update(std::vector<sf::Keyboard::Key>& userInputs){
             ++it;
         }
     }
-    this->PowerUpOnCase();
+    
+    // check if the player is on a powerUp
+
+    // get current case
+    Terrain* terrain = Terrain::GetInstance();
+    Case* currentCase = terrain->getCase(x_,y_);
+
+    std::vector<AbstractPowerUp*> powerUps = currentCase->getAllOfType<AbstractPowerUp>();
+    for (AbstractPowerUp* powerup : powerUps){
+        powerup->apply(this);
+        // remove the powerup from the case
+        currentCase->suppElem(powerup);
+    }
 }
 
 bool Player::canMove(const float& nextX, const float& nextY){
@@ -206,4 +209,14 @@ bool Player::placeBomb(){
     currCase->addElem(bomb);
     this->bombCount_++;
     return true;
+}
+
+void Player::die(){
+    // remove himsef from the terrain
+    Terrain* terrain = Terrain::GetInstance();
+    // remove the player from the case
+    terrain->getCase(this->x_, this->y_)->suppElem(this);
+    // inform the terrain that the player is dead
+    terrain->removePlayer(this);
+
 }

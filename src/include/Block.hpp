@@ -4,13 +4,13 @@
 #include "AbstractGameElement.hpp"
 #include "SFMLRenderer.hpp"
 
-class PowerUp;
+class AbstractPowerUp;
 
 class Block : public AbstractGameElement
 {
 public:
     // constructor
-    Block(const int& x, const int& y, const bool& isDestructible, PowerUp* powerUp = nullptr);
+    Block(const int& x, const int& y, const bool& isDestructible, AbstractPowerUp* powerUp = nullptr);
     // destructor
     //~Block();
 
@@ -20,12 +20,13 @@ public:
     // accessors
     const bool& isDestructible() const   { return this->isDestructible_;}
     void destroy();
-    void setPower(PowerUp* PU);
+    void setPower(AbstractPowerUp* PU);
+    const AbstractPowerUp* powerUp() const { return this->powerUp_;}
     // operators stream
     friend std::ostream& operator<<(std::ostream& os, const Block& block);
 private:
     
-    PowerUp* powerUp_;
+    AbstractPowerUp* powerUp_;
     bool isDestructible_;
 
     

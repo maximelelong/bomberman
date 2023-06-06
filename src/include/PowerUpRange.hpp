@@ -1,28 +1,19 @@
 #ifndef POWERUPRANGE_HPP
 #define POWERUPRANGE_HPP
 #include <vector>
-#include "PowerUp.hpp"
+#include "AbstractPowerUp.hpp"
 #include <iostream>
 
-class Player;
-
-class PowerUpRange: public PowerUp
+class PowerUpRange: public AbstractPowerUp
 {
 
 public:
 
     // constructor
-    PowerUpRange(const int& x, const int& y) : PowerUp(x,y) {};
+    PowerUpRange(const int& x, const int& y) : AbstractPowerUp(x,y) {};
     // destructor
     //~Bomb();
-
-    // overriden display from Displayable
-    void display(SFMLRenderer& renderer);
-    // overriden update from AbstractGameElement
-
-private:
-
-    void Apply(Player* owner);
+    void apply(Player* owner);
 
 };
 #endif

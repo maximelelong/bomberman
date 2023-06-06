@@ -15,6 +15,14 @@ Case::Case(const uint x, const uint y)
     y_ = y;
 }
 
+Case::~Case()
+{
+    // iterate over the gameElements_ vector and delete all the elements
+    for (int i = 0; i < this->gameElements_.size(); i++){
+        delete this->gameElements_[i];
+    }
+}
+
 
 void Case::suppElem(AbstractGameElement* elem){    //parcourt la liste, et si l'element pointé par l'iterateur a le meme serial que l'element a supprimer, le supprime
     for (int i = 0; i < this->gameElements_.size(); i++){
@@ -61,7 +69,7 @@ bool Case::containsDestructibleBlock(){
     for (int i = 0; i < this->gameElements_.size(); i++){
         AbstractGameElement* elem = this->gameElements_[i];
         if (typeid(*elem) == typeid(Block)){
-            // check if the block is indestructible
+            // check if the block is destructible
             Block* block = dynamic_cast<Block*>(elem);
             if (block->isDestructible()){
                 return true;
@@ -72,23 +80,11 @@ bool Case::containsDestructibleBlock(){
 }
 
 bool Case::containsBomb(){
-    for (int i = 0; i < this->gameElements_.size(); i++){
-        AbstractGameElement* elem = this->gameElements_[i];
-        if (typeid(*elem) == typeid(Bomb)){
-            return true;
-        }
-    }
-    return false;
+    return this->getAllOfType<Bomb>().size() > 0;
 }
 
 bool Case::containsPlayer(){
-    for (int i = 0; i < this->gameElements_.size(); i++){
-        AbstractGameElement* elem = this->gameElements_[i];
-        if (typeid(*elem) == typeid(Player)){
-            return true;
-        }
-    }
-    return false;
+    return this->getAllOfType<Player>().size() > 0;
 }
 
 bool Case::applyExplosion(){
@@ -106,22 +102,9 @@ bool Case::applyExplosion(){
         else if (typeid(*elem) == typeid(Player)){
             // check if the player is dead, if so, destroy it
             Player* player = dynamic_cast<Player*>(elem);
+            player->die();
         }
     }
     return hasBeenDestroyed;
 }
 
-bool Case::isPowerUp(int nb){
-    AbstractGameElement* elem = this->gameElements_[nb];
-    if ((typeid(*elem) == typeid(PowerUpSkate))||(typeid(*elem) == typeid(PowerUpDeath))||(typeid(*elem) == typeid(PowerUpBomb))||((typeid(*elem) == typeid(PowerUpRange)))){
-        return true;
-    }
-    return false;
-}
-
-PowerUp* Case::getPowerUp(int nb)
-{
-        AbstractGameElement* elem = this->gameElements_[nb];
-        PowerUp* PU = dynamic_cast<PowerUp*>(elem);
-        return PU;
-}

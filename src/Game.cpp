@@ -28,6 +28,7 @@ void Game::run(){
     sf::Clock gameLoopClock;
     while (running)
     {
+
         std::vector<sf::Event> rawInputs = this->gatherInputs();
         // if the rawInputs contains a quit event, stop the game
         
@@ -48,7 +49,35 @@ void Game::run(){
         sf::Time timeToSleep = sf::milliseconds(Game::GAME_LOOP_TIME_MS) - gameLoopClock.restart();
         if (timeToSleep.asMicroseconds() > 0)
             sf::sleep(timeToSleep);
+
+        // check if there is still more than one player alive
+        // if not, stop the game
+        if (this->terrain->listePlayers().size() <= 1){
+            this->running = false;
+        }
     }
+    std::cout << "Game is over" << std::endl;
+
+    // if there is no winner, exit the game
+    if (this->terrain->listePlayers().size() > 1){
+        std::cout << "No winner" << std::endl;
+        return;
+    }
+
+
+    std::vector<Player*> players = this->terrain->listePlayers();
+    renderer->displayWinnerScreen(players[0]);
+
+    // wait for the user to press any key before closing the window
+    sf::Event event;
+    while (this->renderer->window().waitEvent(event))
+    {
+        if (event.type == sf::Event::KeyPressed){
+            break;
+        }
+    }
+
+    // end of the game
 
 }
 

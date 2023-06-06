@@ -11,6 +11,9 @@
 #include <iostream>
 
 SFMLRenderer::SFMLRenderer(){
+    Terrain* terrain = Terrain::GetInstance();
+    int sizeX = terrain->sizeX();
+    int sizeY = terrain->sizeY();
     
     // member variables init
     this->blocksSprites_ = std::vector<sf::Sprite>();
@@ -19,22 +22,35 @@ SFMLRenderer::SFMLRenderer(){
     
     int blockWidth = 16;
 
-    this->window_.create(sf::VideoMode(blockWidth*11, blockWidth*11), "SFML window");
+    // create unresizable window
+    
+
+    this->window_.create(sf::VideoMode(blockWidth*sizeX, blockWidth*sizeY), "Bomberman C++", sf::Style::Titlebar | sf::Style::Close);
     this->window_.setFramerateLimit(60);
 
-    // resize the window to be 3times bigger
-    this->window_.setSize(sf::Vector2u(blockWidth*11*3, blockWidth*11*3));
-    
-    // load the texture
+    // Create a View to display the world
+    sf::View view(sf::FloatRect(0, 0, sizeX*blockWidth, sizeY*blockWidth));
+    this->window_.setView(view);
+
+    // resize window to be 3 times bigger
+    this->window_.setSize(sf::Vector2u(sizeX*blockWidth*3, sizeY*blockWidth*3));
+
     if (!texture_.loadFromFile("../assets/bomberman_texture.gif"))
     {
         std::cout << "Error while loading texture" << std::endl;
     }
 
-    if (!texture_2.loadFromFile("../assets/bomberman_texture.png"))
+    if (!texture_2.loadFromFile("../assets/powerup_texture.png"))
     {
         std::cout << "Error while loading texture" << std::endl;
     }
+
+    if(!font_.loadFromFile("../assets/Retro_Gaming.ttf"))
+    {
+        std::cout << "Error while loading font" << std::endl;
+    }
+
+
 }
 
 SFMLRenderer::~SFMLRenderer(){
@@ -42,7 +58,7 @@ SFMLRenderer::~SFMLRenderer(){
 }
 
 
-void SFMLRenderer::displayCase(Case* case_){
+void SFMLRenderer::displayCase(const Case* case_){
     // draw a gray square with a dark gray border based on the case's position
     sf::Color caseColor(128, 128, 128);
     sf::Color borderColor(64, 64, 64);
@@ -55,7 +71,7 @@ void SFMLRenderer::displayCase(Case* case_){
 }
 
 
-void SFMLRenderer::displayTerrain(Terrain* terrain){
+void SFMLRenderer::displayTerrain(const Terrain* terrain){
     // window dimensions
     uint windowWidth = this->window_.getSize().x;
     uint windowHeight = this->window_.getSize().y;
@@ -67,10 +83,10 @@ void SFMLRenderer::displayTerrain(Terrain* terrain){
     window_.draw(background);
 }
 
-void SFMLRenderer::displayPlayer(Player* player){
+void SFMLRenderer::displayPlayer(const Player* player){
     sf::Sprite sprite;
     sprite.setTexture(texture_);
-    sprite.setOrigin(7.5, 10);
+    sprite.setOrigin(7.5, 13);
     
     if(player->id() == 0) {
         sprite.setTextureRect(sf::IntRect(42, 167, 17, 20));
@@ -82,10 +98,12 @@ void SFMLRenderer::displayPlayer(Player* player){
     }
 
     sprite.setPosition(player->x() * 16, player->y() * 16);
+    // resize the sprite
+    sprite.setScale(0.9, 0.9);
     this->playersSprites_.push_back(sprite);
 }
 
-void SFMLRenderer::displayBlock(Block* block){
+void SFMLRenderer::displayBlock(const Block* block){
     sf::Sprite sprite;
     sprite.setTexture(texture_);
 
@@ -99,7 +117,7 @@ void SFMLRenderer::displayBlock(Block* block){
     this->blocksSprites_.push_back(sprite);
 }
 
-void SFMLRenderer::displayBomb(Bomb* bomb){
+void SFMLRenderer::displayBomb(const Bomb* bomb){
     
     if (bomb->exploding())
     {
@@ -176,40 +194,26 @@ void SFMLRenderer::displayBomb(Bomb* bomb){
     
 }
 
-void SFMLRenderer::displayPowerUpSkate(PowerUpSkate* skate)
-{
+void SFMLRenderer::displayPowerUp(const AbstractPowerUp* powerUp){
     sf::Sprite sprite_power_up;
     sprite_power_up.setTexture(texture_2);
-    sprite_power_up.setTextureRect(sf::IntRect(6, 55, 16, 16));
-    sprite_power_up.setPosition(skate->x() * 16, skate->y() * 16);
-    this->objectsSprites_.push_back(sprite_power_up);
-}
+    sprite_power_up.setPosition(powerUp->x() * 16, powerUp->y() * 16);
+    
+    if(typeid(*powerUp) == typeid(PowerUpSkate)){
+        sprite_power_up.setTextureRect(sf::IntRect(6, 55, 16, 16));
+    } else if(typeid(*powerUp) == typeid(PowerUpDeath)){
+        sprite_power_up.setTextureRect(sf::IntRect(66, 55, 16, 16));
+    } else if(typeid(*powerUp) == typeid(PowerUpBomb)){
+        sprite_power_up.setTextureRect(sf::IntRect(46, 55, 16, 16));
+    } else if(typeid(*powerUp) == typeid(PowerUpRange)){
+        sprite_power_up.setTextureRect(sf::IntRect(46, 75, 16, 16));
+    } else {
+        // unknown power up
+        sprite_power_up = sf::Sprite(); // empty sprite
+    }
 
-void SFMLRenderer::displayPowerUpDeath(PowerUpDeath* death)
-{
-    sf::Sprite sprite_power_up;
-    sprite_power_up.setTexture(texture_2);
-    sprite_power_up.setTextureRect(sf::IntRect(66, 55, 16, 16));
-    sprite_power_up.setPosition(death->x() * 16, death->y() * 16);
     this->objectsSprites_.push_back(sprite_power_up);
-}
 
-void SFMLRenderer::displayPowerUpBomb(PowerUpBomb* bomb)
-{
-    sf::Sprite sprite_power_up;
-    sprite_power_up.setTexture(texture_2);
-    sprite_power_up.setTextureRect(sf::IntRect(46, 55, 16, 16));
-    sprite_power_up.setPosition(bomb->x() * 16, bomb->y() * 16);
-    this->objectsSprites_.push_back(sprite_power_up);
-}
-
-void SFMLRenderer::displayPowerUpRange(PowerUpRange *Range)
-{
-    sf::Sprite sprite_power_up;
-    sprite_power_up.setTexture(texture_2);
-    sprite_power_up.setTextureRect(sf::IntRect(46, 75, 16, 16));
-    sprite_power_up.setPosition(Range->x() * 16, Range->y() * 16);
-    this->objectsSprites_.push_back(sprite_power_up);
 }
 
 void SFMLRenderer::render(){
@@ -241,5 +245,67 @@ void SFMLRenderer::render(){
     // display the window
     this->window_.display();
     
+}
+
+void SFMLRenderer::displayWinnerScreen(const Player* winner){
+    
+    sf::Vector2f dimensions = this->window_.getView().getSize();
+
+    // display a rectangle with white background and grey borders
+    sf::RectangleShape rectangle;
+    rectangle.setSize(sf::Vector2f(dimensions.x*0.75, dimensions.y*0.75));
+
+    rectangle.setFillColor(sf::Color::White);
+    rectangle.setOutlineColor(sf::Color(200, 200, 200));
+    rectangle.setOutlineThickness(5);
+    // set the rectangle origin at its center
+    sf::Vector2f rectangleDimensions = rectangle.getSize();
+    rectangle.setOrigin(rectangleDimensions.x / 2, rectangleDimensions.y / 2);
+    rectangle.setPosition(dimensions.x / 2, dimensions.y / 2);
+    this->window_.draw(rectangle);
+
+
+    // display the winner's sprite
+    sf::Sprite sprite;
+    sprite.setTexture(texture_);
+    sprite.setOrigin(7.5, 13);
+    
+    if(winner->id() == 0) {
+        sprite.setTextureRect(sf::IntRect(42, 167, 17, 20));
+    } else if (winner->id() == 1) {
+        sprite.setTextureRect(sf::IntRect(120, 167, 17, 20));
+    } else if (winner->id() == 2) {
+        sprite.setTextureRect(sf::IntRect(195, 168, 17, 20));   
+    }
+    sprite.setScale(2, 2);
+
+    // draw the sprite at the center of the window
+    sprite.setPosition(dimensions.x / 2, dimensions.y / 2 - 20);
+    this->window_.draw(sprite);
+
+
+
+    // display the winner's name
+    std::string message = "Player " + std::to_string(winner->id() + 1) + "\n   wins !";
+    sf::Text text(message, this->font_, 20);
+    text.setFillColor(sf::Color::Black);
+    
+    text.setOrigin((int)text.getLocalBounds().width / 2, (int) text.getLocalBounds().height / 2);
+    text.setPosition((int)dimensions.x / 2, (int)dimensions.y / 2 + 20);
+    this->window_.draw(text);
+
+    // Press any key to restart
+    message = "Press any key to quit";
+    text = sf::Text(message, this->font_, 10);
+    text.setFillColor(sf::Color::Black);
+    text.setOrigin((int)text.getLocalBounds().width / 2, (int) text.getLocalBounds().height / 2);
+    text.setPosition((int)dimensions.x / 2, (int)dimensions.y / 2 + 80);
+    this->window_.draw(text);
+
+
+    // display the window
+    this->window_.display();
+
+    std::cout << "Displaying winner screen" << std::endl;
 }
 

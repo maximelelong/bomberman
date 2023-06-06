@@ -1,28 +1,19 @@
 #ifndef POWERUPBOMB_HPP
 #define POWERUPBOMB_HPP
 #include <vector>
-#include "PowerUp.hpp"
+#include "AbstractPowerUp.hpp"
 #include <iostream>
 
-class Player;
 
-class PowerUpBomb: public PowerUp
+class PowerUpBomb: public AbstractPowerUp
 {
 
 public:
 
     // constructor
-    PowerUpBomb(const int& x, const int& y) : PowerUp(x,y) {};
+    PowerUpBomb(const int& x, const int& y) : AbstractPowerUp(x,y) {};
     // destructor
     //~Bomb();
-
-    // overriden display from Displayable
-    void display(SFMLRenderer& renderer);
-    // overriden update from AbstractGameElement
-
-private:
-
-    void Apply(Player* owner);
-
+    void apply(Player* owner) override;
 };
 #endif

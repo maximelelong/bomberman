@@ -3,7 +3,7 @@
 #include "Case.hpp"
 #include <iostream>
 
-Block::Block(const int& x, const int& y, const bool& isDestructible, PowerUp* powerUp) : AbstractGameElement(x, y)
+Block::Block(const int& x, const int& y, const bool& isDestructible, AbstractPowerUp* powerUp) : AbstractGameElement(x, y)
 {
     this->isDestructible_ = isDestructible;
     this->powerUp_ = powerUp;
@@ -31,9 +31,9 @@ void Block::destroy(){
 
 }
 
-void Block::setPower(PowerUp *PU)
+void Block::setPower(AbstractPowerUp *powerUp)
 {
-    this->powerUp_= PU;
+    this->powerUp_= powerUp;
 }
 
 void Block::display(SFMLRenderer& renderer){

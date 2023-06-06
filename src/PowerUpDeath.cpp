@@ -1,17 +1,12 @@
 #include "PowerUpDeath.hpp"
-#include "Case.hpp"
-#include "Terrain.hpp"
+#include "Player.hpp"
 
-void PowerUpDeath::display(SFMLRenderer& renderer)
-{
-    renderer.displayPowerUpDeath(this);
-}
+const float PowerUpDeath::SPEED_DECREASE = 0.05;
 
-
-void PowerUpDeath::Apply(Player* owner)
+void PowerUpDeath::apply(Player* owner)
 {   
-    if(owner->speed()>= 0.2)
+    if(owner->speed() - SPEED_DECREASE >=  Player::DEFAULT_SPEED)
     {
-        owner->speed()-=0.1;
+        owner->speed() -= SPEED_DECREASE;
     }
 }

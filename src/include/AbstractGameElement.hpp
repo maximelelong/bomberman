@@ -10,13 +10,17 @@ class AbstractGameElement : public Displayable{         // Abstract class to rep
 
 public :
 
-    AbstractGameElement(const int& x, const int& y);
+    AbstractGameElement(const float& x, const float& y);
     //~AbstractGameElement();
 
     // accessors
     const float& x() const   { return this->x_;}
     const float& y() const   { return this->y_;}
     const int& serial() const   { return this->serial_;}
+
+    // mutators
+    float& x(const float& x)   { return this->x_ = x;}
+    float& y(const float& y)   { return this->y_ = y;} 
     
     bool moveTo(const float& x, const float& y);      //deplace un element
 

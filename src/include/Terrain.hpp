@@ -27,6 +27,12 @@ class Terrain : public Displayable {     // classe qui contient les cases, Singl
         Case* getCase(const uint& x, const uint& y) const;
         const uint& sizeX() const { return this->sizeX_;}
         const uint& sizeY() const{ return this->sizeY_;}
+        const std::vector<Player*>& listePlayers() const { return this->listePlayers_;}
+
+        // remove a player from the list
+        void removePlayer(Player* player);
+
+        // overriden display from Displayable
         void display(SFMLRenderer& renderer) override;
 
     protected:
@@ -37,9 +43,12 @@ class Terrain : public Displayable {     // classe qui contient les cases, Singl
         uint sizeX_;
         uint sizeY_;
         std::vector<Case*> listeCases_;
+        std::vector<Player*> listePlayers_;
 
     private:
-        // overriden display from Displayable
+        // generate N unique random numbers between min and max (inclusive)
+        std::vector<int> generateUniqueIntVector(const int& min, const int& max, const int& N);
+
         
         // singleton instance and safeguard mutex
         static Terrain* s_instance;

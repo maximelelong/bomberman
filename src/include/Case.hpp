@@ -8,7 +8,8 @@
 #include "SFMLRenderer.hpp"
 #include "AbstractGameElement.hpp"
 #include "Displayable.hpp"
-#include "PowerUp.hpp"
+#include "AbstractPowerUp.hpp"
+#include <typeinfo>
 class Case : public Displayable
 {
 
@@ -16,7 +17,7 @@ public:
     // constructeur
     Case(const uint x, const uint y);
     // destructeur
-    //~Case(){}; 
+    ~Case(); 
 
     // affiche le contenu de la case
     void display(SFMLRenderer& renderer) override;
@@ -31,7 +32,6 @@ public:
     // accessors
     const uint& x() const   { return this->x_;}
     const uint& y() const   { return this->y_;}
-    PowerUp* getPowerUp(int nb);
     // return reference to the list of game elements
     std::vector<AbstractGameElement*>& gameElements() { return this->gameElements_;}
 
@@ -40,9 +40,21 @@ public:
     bool containsPlayer();
     bool containsIndestructibleBlock();
     bool containsDestructibleBlock();
-    bool isPowerUp(int nb);
 
     bool applyExplosion();
+    
+    // get all elements of a certain type (or subtype) in the case by using dynamic_cast
+    template <typename T>
+    std::vector<T*> getAllOfType(){
+        std::vector<T*> result;
+        for (int i = 0; i < this->gameElements_.size(); i++){
+            T* elem = dynamic_cast<T*>(gameElements_[i]);
+            if (elem != nullptr){
+                result.push_back(elem);
+            }
+        }
+        return result;
+    }
 
 protected:
 
