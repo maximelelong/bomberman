@@ -24,3 +24,7 @@ Pour lancer le jeu, une fois le projet compilé, exécuter la commande suivante 
 ```bash
 ./bomberman
 ```
+
+## Doxygen
+Pour ouvrir la documentation doxygen depuis l'index de départ, ouvrir index.html dans le dossier index
+```
