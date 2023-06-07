@@ -6,14 +6,21 @@
 #include <SFML/Graphics.hpp>
 #include "Displayable.hpp"
 
+/**
+ * @brief Classe abstraite regroupant tous les élements de jeux, comme les blocs, les power ups ou les joueurs
+*/
+
 class AbstractGameElement : public Displayable{         // Abstract class to represent a game element
 
 public :
 
+
     AbstractGameElement(const float& x, const float& y);
     //~AbstractGameElement();
 
-    // accessors
+    /**
+     * accessors
+     * */ 
     const float& x() const   { return this->x_;}
     const float& y() const   { return this->y_;}
     const int& serial() const   { return this->serial_;}

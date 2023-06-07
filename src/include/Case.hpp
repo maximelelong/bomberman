@@ -19,14 +19,14 @@ public:
     // destructeur
     ~Case(); 
 
-    // affiche le contenu de la case
+    /** @brief affiche le contenu de la case*/ 
     void display(SFMLRenderer& renderer) override;
 
-    //ajoute un element à la liste de la case
+    /** @brief un element à la liste de la case*/
     void addElem(AbstractGameElement* elem);
-    // remove an element from the list with the matching serial
+    /** @brief remove an element from the list with the matching serial*/
     void suppElem(AbstractGameElement* elem);
-
+    /** @brief mise à jour de la case*/
     void update(std::vector<sf::Keyboard::Key>& userInputs);
 
     // accessors

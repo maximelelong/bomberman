@@ -14,8 +14,9 @@ public:
     // destructor
     //~Player();
 
-    // overriden display from Displayable
+    /** overriden display from Displayable*/
     void display(SFMLRenderer& renderer) override;
+    /** @brief à jour le joueur*/
     void update(std::vector<sf::Keyboard::Key>& userInputs);
 
     // accessors
@@ -31,7 +32,9 @@ public:
     int& bombRange()   { return this->bombRange_;}
     int& bombCount()   { return this->bombCount_;}
 
+    /** @brief Permet de déposer une bombe*/
     bool placeBomb();
+    /** @brief Mort du Joueur*/
     void die();
 
     // default values
@@ -44,7 +47,7 @@ private:
 
     // caractéristiques
     int id_;
-    float speed_ = 0;
+    float speed_ = 0; 
     int bombCapacity_ = 0;
     int bombRange_ = 0;
     int bombCount_ = 0;
@@ -54,7 +57,7 @@ private:
     float hitboxHeight_ = 0.55;
 
     bool isDying_ = false;
-
+    /** @brief determine si le joueur peut se deplacer*/
     bool canMove(const float& x, const float& y);
     bool handleKey(const sf::Keyboard::Key& key);
     static int s_playerCount;

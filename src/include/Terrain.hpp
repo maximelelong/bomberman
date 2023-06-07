@@ -11,7 +11,7 @@
 // forward declaration
 class AbstractGameElement;
 class Case;
-
+/** @brief classe représentant le terrain de jeu*/
 class Terrain : public Displayable {     // classe qui contient les cases, Singleton
 
     public:
@@ -20,19 +20,23 @@ class Terrain : public Displayable {     // classe qui contient les cases, Singl
         Terrain(Terrain &other) = delete;
         void operator=(const Terrain &) = delete;
 
-        // Get the instance of the singleton
+        /** @brief the instance of the singleton*/
         static Terrain *GetInstance();
                 
         // Getters
+        /** @brief retourne la case designée par x et y
+         * @param x valeur en abscisse
+         * @param y valeur en ordonnée
+        */
         Case* getCase(const uint& x, const uint& y) const;
         const uint& sizeX() const { return this->sizeX_;}
         const uint& sizeY() const{ return this->sizeY_;}
         const std::vector<Player*>& listePlayers() const { return this->listePlayers_;}
 
-        // remove a player from the list
+        /** remove a player from the list */
         void removePlayer(Player* player);
 
-        // overriden display from Displayable
+        /** overriden display from Displayable*/
         void display(SFMLRenderer& renderer) override;
 
     protected:

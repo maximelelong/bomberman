@@ -15,6 +15,7 @@ public:
     PowerUpDeath(const int& x, const int& y) : AbstractPowerUp(x,y) {};
     // destructor
     //~Bomb();
+    /** @brief applique le power up au joueur qui le trouve*/
     void apply(Player* owner);
 
 

@@ -6,6 +6,10 @@
 
 class Player;
 
+/**
+ * @brief Classe abstraite regroupant tous les power ups
+*/
+
 class AbstractPowerUp : public AbstractGameElement
 {
 public:

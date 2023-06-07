@@ -5,10 +5,10 @@
 #include <map>
 #include <vector>
 
-// this class is used to handle key events
-// it will store the key status (pressed or not)
-// when receiving a key event, it will update the status
-
+/**this class is used to handle key events
+ * it will store the key status (pressed or not)
+ * when receiving a key event, it will update the status
+ */
 class KeyEventHandler {
     public:
         KeyEventHandler();
