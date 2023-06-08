@@ -2,6 +2,10 @@
 # Bomberman C++
 Jeu bomberman en C++ réalisé dans le cadre du cours de C++ de ROB4 de Polytech Sorbonne.
 
+## Auteurs
+- Maxime Lelong
+- Léonard Maurel
+
 ## Comment jouer
 Le jeu se joue à deux joueurs, chacun contrôlant un bomberman. Le but est de tuer l'autre joueur en posant des bombes. Le joueur qui meurt en premier perd la partie.
 Le jeu se joue en local, sur le même ordinateur.
