@@ -80,8 +80,6 @@ Terrain::Terrain()
     // remove the blocks at the top left and bottom right corners (for the players)
     getCase(1, 1)->gameElements().clear();
     getCase(1, 2)->gameElements().clear();
-    PowerUpBomb* powerUpBomb = new PowerUpBomb(1, 2);
-    getCase(1, 2)->addElem(powerUpBomb);
     getCase(2, 1)->gameElements().clear();
     getCase(sizeX_ - 2, sizeY_ - 2)->gameElements().clear();
     getCase(sizeX_ - 2, sizeY_ - 3)->gameElements().clear();

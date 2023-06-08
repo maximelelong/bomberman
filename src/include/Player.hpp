@@ -2,7 +2,6 @@
 #define PLAYER_HPP
 #include <vector>
 #include "AbstractGameElement.hpp"
-#include "UserInputObserver.hpp"
 #include "SFMLRenderer.hpp"
 
 class Player : public AbstractGameElement
