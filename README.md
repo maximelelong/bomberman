@@ -39,11 +39,10 @@ Pour lancer les tests, une fois le projet compilé, exécuter la commande suivan
 ctest
 ```
 
-Pour lancer le jeu, une fois le projet compilé, exécuter la commande suivante dans le dossier build:
+Pour lancer le jeu, une fois le projet compilé, exécuter la commande suivante:
 ```bash
-./bomberman
+./build/src/bomberman
 ```
 
 ## Doxygen
-Pour ouvrir la documentation doxygen depuis l'index de départ, ouvrir index.html dans le dossier docs
-```
+Pour ouvrir la documentation doxygen depuis l'index de départ, ouvrir index.html dans le dossier `docs`
