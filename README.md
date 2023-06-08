@@ -2,6 +2,25 @@
 # Bomberman C++
 Jeu bomberman en C++ réalisé dans le cadre du cours de C++ de ROB4 de Polytech Sorbonne.
 
+## Comment jouer
+Le jeu se joue à deux joueurs, chacun contrôlant un bomberman. Le but est de tuer l'autre joueur en posant des bombes. Le joueur qui meurt en premier perd la partie.
+Le jeu se joue en local, sur le même ordinateur.
+
+Le jeu contient 4 types de powerups qui apparaissent en détruisant les blocs:
+- Powerup de vitesse: augmente la vitesse de déplacement
+- Powerup de ralentissement: ralentit la vitesse de déplacement 
+- Powerup de portée: augmente la portée des bombes
+- Powerup de bombe: augmente le nombre de bombes que le bomberman peut poser simultanément
+
+Les contrôles sont les suivants:
+- Joueur 1:
+    - `Z` `Q` `S` `D` pour se déplacer
+    - `Espace` pour poser une bombe
+- Joueur 2:
+    - `←` `↑` `→` `↓` pour se déplacer
+    - `LeftControl` pour poser une bombe
+
+
 ## Dépendances
 Linux only:
 - CMake
@@ -26,5 +45,5 @@ Pour lancer le jeu, une fois le projet compilé, exécuter la commande suivante 
 ```
 
 ## Doxygen
-Pour ouvrir la documentation doxygen depuis l'index de départ, ouvrir index.html dans le dossier index
+Pour ouvrir la documentation doxygen depuis l'index de départ, ouvrir index.html dans le dossier docs
 ```
